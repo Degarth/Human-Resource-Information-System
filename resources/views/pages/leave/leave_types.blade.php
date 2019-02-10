@@ -2,7 +2,16 @@
 
 @section('content')
 
-<h1>Leave Types</h1>
+<div class="header"> 
+    <h1 class="page-header">
+        Leave Types
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#">Dashboard</a></li>
+        <li><a>Leave</a></li>
+        <li class="active">Types</li>
+    </ol>               
+</div>
 
 
 @endsection

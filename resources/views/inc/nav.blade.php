@@ -1,3 +1,4 @@
+<!-- NAV TOP  -->
 <nav class="navbar navbar-default top-navbar" role="navigation">
 
     <div class="navbar-header">
@@ -9,25 +10,19 @@
         </button>
         <a class="navbar-brand" href="/"><strong><i class="icon fa fa-user"></i> HR System</strong></a>
         
-    <div id="sideNav" href="">
-    <i class="fa fa-bars icon"></i> 
-    </div>
+        <div id="sideNav" href="">
+        <i class="fa fa-bars icon"></i> 
+        </div>
     </div>
 
     <ul class="nav navbar-top-links navbar-right">
-        
-        <!-- /.dropdown -->
-        
-        <!-- /.dropdown -->
-        
-        </li>
         <!-- /.dropdown -->
         <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
                 <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
             </a>
             <ul class="dropdown-menu dropdown-user">
-                <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                <li><a href="/profile"><i class="fa fa-user fa-fw"></i> User Profile</a>
                 </li>
                 <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
                 </li>
@@ -43,12 +38,14 @@
 </nav>
 <!--/. NAV TOP  -->
 <!-- NAV SIDE  -->
-<nav class="navbar-default navbar-side" role="navigation">
-
+<nav class="navbar-side" role="navigation">
     <div class="sidebar-collapse">
+        
         <ul class="nav" id="main-menu">
             <li>
-                <a class="{{ Request::is('profile') ? 'active-menu' : null }}" href="/profile"><i class="fa fa-fw fa-user"></i> User</a>
+                    <a><img id="profile-img" src="{{URL::asset('/img/ss.jpg')}}" alt="profile Pic" height="50" width="50" style="margin:0px 10px 0px 10px; border-radius:50%; border: 3px solid #F36A5A;">
+                        Welcome David
+                    </a>  
             </li>
             <li>
                 <a class="{{ Request::is('/') ? 'active-menu' : null }}" href="/"><i class="fa fa-bullseye"></i> Dashboard</a>

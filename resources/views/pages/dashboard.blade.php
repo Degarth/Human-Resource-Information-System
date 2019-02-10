@@ -2,16 +2,24 @@
 
 @section('content')
    
+<!--<div class="header"> 
+            <div class="page-header">
+              
+            </div>				
+</div>-->
 <div class="header"> 
-            <h1 class="page-header">
-                Dashboard <small>Welcome Deividai</small>
-            </h1>				
+    <h1 class="page-header">
+        Dashboard <small>Welcome David James</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a>Dashboard</a></li>
+        <li class="active">Data</li>
+    </ol>               
 </div>
 <!-- /. PAGE INNER  -->
 <div id="page-inner">
 
     <!-- /. ROW  -->
-
     <div class="row">
         <div class="col-md-3 col-sm-12 col-xs-12">
         <div class="board">

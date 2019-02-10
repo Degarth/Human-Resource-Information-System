@@ -32,3 +32,5 @@ Route::get('/view-department', 'PagesController@viewDepartment');
 Route::get('/attendance-report', 'PagesController@attendanceReport');
 Route::get('/leave-report', 'PagesController@leaveReport');
 Route::get('/profile', 'PagesController@profile');
+
+Route::resource('/view-employees', 'EmployeesController');
