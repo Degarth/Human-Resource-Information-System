@@ -26,7 +26,7 @@
             <div class="panel panel-primary">
             <div class="number">
                 <h3>
-                    <h3>368</h3>
+                    <h3>{{ count($employees) }}</h3>
                     <small>Employees</small>
                 </h3> 
             </div>

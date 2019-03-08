@@ -13,14 +13,16 @@
     <!-- FontAwesome Styles-->
     <link href="{{asset('assets/css/font-awesome.css')}}" rel="stylesheet" />
     <!-- Morris Chart Styles-->
-    <link href="{{asset('assets/js/morris/morris-0.4.3.min.css')}}" rel="stylesheet" /></link>
+    <link href="{{asset('assets/js/morris/morris-0.4.3.min.css')}}" rel="stylesheet" />
     <!-- Custom Styles-->
     <link href="{{asset('assets/css/custom-styles.css')}}" rel="stylesheet" />
     <!-- Google Fonts-->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
     <link rel="stylesheet" href="{{asset('https://use.fontawesome.com/releases/v5.6.1/css/all.css')}}" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
-    <link rel="stylesheet" href="{{asset('assets/js/Lightweight-Chart/cssCharts.css')}}"></link> 
-    <link href="{{ asset('css/styles.css') }}" rel="stylesheet" type="text/css" >
+    <link rel="stylesheet" href="{{asset('assets/js/Lightweight-Chart/cssCharts.css')}}" />
+    <link href="{{ asset('css/styles.css') }}" rel="stylesheet" type="text/css" />
+    <!-- JQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 
 <body>

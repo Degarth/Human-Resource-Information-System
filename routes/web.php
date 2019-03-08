@@ -33,4 +33,11 @@ Route::get('/attendance-report', 'PagesController@attendanceReport');
 Route::get('/leave-report', 'PagesController@leaveReport');
 Route::get('/profile', 'PagesController@profile');
 
+
+Route::delete('/delete-all', 'EmployeesController@deleteAll'); // Delete all products
 Route::resource('/view-employees', 'EmployeesController');
+Route::resource('/new-employee', 'EmployeesController');
+Route::get('/', 'EmployeesController@dashboard');
+Route::resource('/upload', 'AttendanceController');
+Route::get('/attendance-log', 'AttendanceController@index');
+Route::post('/import', 'AttendanceController@import');

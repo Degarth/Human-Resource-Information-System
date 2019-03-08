@@ -43,7 +43,7 @@
         
         <ul class="nav" id="main-menu">
             <li>
-                    <a><img id="profile-img" src="{{URL::asset('/img/ss.jpg')}}" alt="profile Pic" height="50" width="50" style="margin:0px 10px 0px 10px; border-radius:50%; border: 3px solid #F36A5A;">
+                    <a><img id="profile-img" src="{{URL::asset('/img/ss.jpg')}}" alt="profile Pic" height="50" width="50" style="margin:0px 10px 0px 10px; border-radius:50%; border: 3px solid rgb(56, 98, 187);">
                         Welcome David
                     </a>  
             </li>
@@ -51,10 +51,10 @@
                 <a class="{{ Request::is('/') ? 'active-menu' : null }}" href="/"><i class="fa fa-bullseye"></i> Dashboard</a>
             </li>
             <li> 
-                <a class="{{ Request::is('new-employee') || Request::is('view-employees') ? 'active-menu' : null }}"><i class="fa fa-user"></i> Employee<span class="fa arrow"></span></a>
+                <a class="{{ Request::is('new-employee/create') || Request::is('view-employees') ? 'active-menu' : null }}"><i class="fa fa-user"></i> Employee<span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
                     <li>
-                        <a class="{{ Request::is('new-employee') ? 'active-menu' : null }}" href="/new-employee">Add New Employee</a>
+                        <a class="{{ Request::is('new-employee/create') ? 'active-menu' : null }}" href="/new-employee/create">Add New Employee</a>
                     </li>
                     <li>
                         <a class="{{ Request::is('view-employees') ? 'active-menu' : null }}" href="/view-employees">View Employees</a>
