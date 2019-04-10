@@ -18,7 +18,7 @@
     <div class="panel" style="padding:20px">
         <div class="row">
             <div class="col-md-4">
-                <div class="panel">
+                <div class="panel-body" >
                     <div class="well">
                     <img style="width:100%" src="/storage/avatars/{{$employee->avatar}}"/>
                     </div>

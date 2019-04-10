@@ -38,6 +38,9 @@ Route::delete('/delete-all', 'EmployeesController@deleteAll'); // Delete all pro
 Route::resource('/view-employees', 'EmployeesController');
 Route::resource('/new-employee', 'EmployeesController');
 Route::get('/', 'EmployeesController@dashboard');
-Route::resource('/upload', 'AttendanceController');
-Route::get('/attendance-log', 'AttendanceController@index');
-Route::post('/import', 'AttendanceController@import');
+Route::get('/upload', 'AttendanceController@import');
+Route::resource('/attendance-log', 'AttendanceController');
+Route::delete('delete-attendance', 'AttendanceController@deleteAll');
+Route::post('/import', 'AttendanceController@import')->name('import');
+Route::resource('/leaves', 'LeavesController');
+Route::resource('/leave-types', 'LeaveTypesController');

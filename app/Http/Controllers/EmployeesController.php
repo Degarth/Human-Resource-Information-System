@@ -15,7 +15,7 @@ class EmployeesController extends Controller
      */
     public function index()
     {
-        $employees = Employee::orderBy('id', 'desc')->paginate(5);
+        $employees = Employee::orderBy('id', 'desc')->paginate(10);
         return view('pages.employee.view_employees')->with('employees', $employees);
     }
 
@@ -23,7 +23,7 @@ class EmployeesController extends Controller
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
-     */
+     */   
     public function create()
     {
         return view('pages.employee.create');
@@ -189,11 +189,15 @@ class EmployeesController extends Controller
     public function deleteAll(Request $request) 
     {
         $ids = $request->get('ids');
-        Employee::destroy($ids);
-        if($employee->avatar != 'noImage.jpg') {
-            //Delete Avatar
-            Storage::delete('public/avatars/'.$employee->avatar);
+        foreach($ids as $id) {
+            $employee = Employee::find($id);
+            if($employee->avatar != 'noImage.jpg') {
+                //Delete Avatar
+                Storage::delete('public/avatars/'.$employee->avatar);
+            }
         }
+        Employee::destroy($ids);
+
         return redirect('/view-employees')->with('success', 'Selected Employees Removed');
     }
 

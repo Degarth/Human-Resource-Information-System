@@ -15,14 +15,14 @@
 
 <div id="page-inner">
     <div class="panel panel-primary" >
-        <div class="panel-body">
+        <div class="panel-body" id="upload">
             <h4>Upload Attendance Sheet</h4><hr/>
             <p style="padding-top:0px">Select choose file and select attendance excel file </p>
             {!! Form::open(['action' => 'AttendanceController@import', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
                 <div class="form-group">
                     {{ Form::label('Excel File') }}
                     <div class="form-control" style="width:50%">
-                        {{ Form::file('attendanceSheet') }}
+                        {{ Form::file('attendance') }}
                     </div>
                 </div>
                 {{ Form::submit('Upload', ['class' => 'btn btn-success', 'style' => 'border-radius:0']) }}

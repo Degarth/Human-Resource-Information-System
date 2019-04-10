@@ -3,6 +3,7 @@
 namespace App\Imports;
 
 use App\Attendance;
+use Illuminate\Database\Eloquent\Model;
 use Maatwebsite\Excel\Concerns\ToModel;
 
 class AttendancesImport implements ToModel
@@ -15,10 +16,10 @@ class AttendancesImport implements ToModel
     public function model(array $row)
     {
         return new Attendance([
-            'employeeId' => $row[1],
-            'fullname' => $row[2],
-            'visited' => $row[3],
-            'campus' => $row[4]
+            'employeeId' => $row[0],
+            'fullname' => $row[1],
+            'visited' => $row[2],
+            'campus' => $row[3]
         ]);
     }
 }

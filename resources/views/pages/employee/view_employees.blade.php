@@ -25,12 +25,12 @@
             <div class="panel panel-primary">
                 <div class="panel-heading" >
                     <div>
-                        <button formaction="/delete-all" type="submit" style="margin-bottom:10px" class="btn btn-danger">Delete All Selected</button> 
-                        <a href="/view-employees/create" class="btn btn-success" style="margin-bottom: 10px;float:right">Add New Employee</a>
+                        <button formaction="/delete-all" type="submit"  class="btn btn-danger">Delete All Selected</button>
+                        <a href="/view-employees/create" class="btn btn-success" style="float:right">Add New Employee</a>
                     </div>
                 </div> 
                 <div class="panel-body" style="margin-top:0px;padding-top:0px"> 
-                    <div class="table-responsive"> 
+                    <div class="table-responsive" style="overflow-y: hidden;"> 
                         <table class="table table-striped table-bordered table-hover">
                             <thead> 
                                 <tr>
@@ -58,18 +58,20 @@
                                             <td>{{ $employee->salary }}</td>
                                             <td>{{ $employee->department }}</td>
                                             <td><div class="dropdown">
-                                                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    Action
-                                                </button>
-                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                    <a class="dropdown-item" href="/view-employees/{{ $employee->id }}">View</a>
-                                                    <a class="dropdown-item" href="/view-employees/{{ $employee->id }}/edit">Edit</a>
-                                                    <button formaction="{{ action('EmployeesController@destroy', $employee->id) }}" type="submit" style="margin-bottom: 10px" class="btn btn-danger dropdown-item ">Delete</button> 
+                                                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        Action
+                                                    </button>
+                                                    <div class="dropdown-menu pull-right" aria-labelledby="dropdownMenuButton">
+                                                            <a class="dropdown-item btn btn-primary" href="/view-employees/{{ $employee->id }}">View</a>
+                                                            <a class="dropdown-item btn btn-warning" href="/view-employees/{{ $employee->id }}/edit">Edit</a>
+                                                          
+                                                            <button class="dropdown-item btn btn-danger" formaction="{{ action('EmployeesController@destroy', $employee->id) }}" type="submit" class="dropdown-item">Delete</button> 
+                                                    </div>
                                                 </div>
-                                                </div></td>
+                                            </td>
                                         </tr>
                                     @endforeach
-                                    {{ $employees->Links() }}<br/>
+                                    
                                 @else
                                     <p>No employees found</p>
                                 @endif
@@ -87,11 +89,13 @@
                                     <th>Action</th>
                                 </tr>
                             </tfoot>
-                        </table>
+                        </table> 
                     </div>
                 </div>
             </div>
-
+            <div class="text-center" >
+                {{ $employees->Links() }}<br/>
+            </div>
         </div>
     </div>
 </form>

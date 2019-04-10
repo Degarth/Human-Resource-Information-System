@@ -10,6 +10,7 @@
         <li><a href="/">Dashboard</a></li>
         <li><a href="/view-employees">View Employees</a></li>
         <li class="active">Show</li>
+        <a class="pull-right" href="/view-employees">Go Back</a>
     </ol>               
 </div>
 
@@ -27,14 +28,16 @@
                 </div>
                 <div class="form-group">
                     {{ Form::label('gender', 'Gender') }}
-                    {{ Form::text('gender', $employee->gender, ['class' => 'form-control', 'placeholder' => 'Gender']) }}
+                    {{ Form::select('gender', ['Male' => 'Male', 'W' => 'Woman'], $employee->gender, 
+                        [
+                            'class' => 'form-control', 'placeholder' => 'Gender'
+                        ]) 
+                    }}
                 </div>
                 <div class="form-group"> 
                     {{ Form::label('birthday', 'Birthday') }}
-                    {{ Form::text('birthday', $employee->birthday, ['class' => 'form-control', 'placeholder' => 'Birthday']) }}
+                    {{ Form::date('birthday', $employee->birthday, ['class' => 'form-control', 'placeholder' => 'Birthday']) }}
                 </div> 
-            </div>
-            <div class="col-md-4">
                 <div class="form-group">
                     {{ Form::label('address', 'Address') }}
                     {{ Form::text('address', $employee->address, ['class' => 'form-control', 'placeholder' => 'Address']) }}
@@ -43,6 +46,8 @@
                     {{ Form::label('email', 'E-mail') }}
                     {{ Form::text('email', $employee->email, ['class' => 'form-control', 'placeholder' => 'E-mail']) }}
                 </div>
+            </div>
+            <div class="col-md-4">               
                 <div class="form-group">
                     {{ Form::label('telephone', 'Telephone') }}
                     {{ Form::text('telephone', $employee->telephone, ['class' => 'form-control', 'placeholder' => 'Telephone']) }}
@@ -51,8 +56,6 @@
                     {{ Form::label('salary', 'Salary') }}
                     {{ Form::text('salary', $employee->salary, ['class' => 'form-control', 'placeholder' => 'Salary']) }}
                 </div>
-            </div>
-            <div class="col-md-4">
                 <div class="form-group">
                     {{ Form::label('position', 'Position') }}
                     {{ Form::text('position', $employee->position, ['class' => 'form-control', 'placeholder' => 'Position']) }}
@@ -65,9 +68,17 @@
                     {{ Form::label('campus', 'Campus') }}
                     {{ Form::text('campus', $employee->campus, ['class' => 'form-control', 'placeholder' => 'Campus']) }}
                 </div>
+            </div>
+            <div class="col-md-4"> 
+                {{ Form::label('Photo') }}   
+                <div class="well">
+                    <img style="width:100%" src="/storage/avatars/{{$employee->avatar}}"/>
+                </div>
                 <div class="form-group">
                     {{ Form::label('Photo') }}
-                    {{ Form::file('avatar') }}
+                    <div class="form-control">
+                        {{ Form::file('avatar') }}
+                    </div>
                 </div>
             </div>
             <div class="text-right col-md-12">  

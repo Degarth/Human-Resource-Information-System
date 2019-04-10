@@ -6,8 +6,7 @@ html, body{
     color: rgb(56, 98, 187) !important;
 }
 .panel, table {
-    border: 10px solid primary;
-    
+    border: 5px solid primary;    
 }
 .page-header{
     padding-bottom:15px;
@@ -18,10 +17,30 @@ html, body{
 
 .dropdown-menu {
     padding: 14px;
+    min-width: 220px !important;
 }
 .a, a:active, a:focus {
     outline:none;
 }
 .panel-heading {
     border-radius: 0px;
+    margin: 0px;
+}
+.panel-body {
+    padding: 0px !important;
+}
+#upload {
+    padding: 20px !important;
+}
+.table {
+    margin: 0px !important;
+}
+.table-responsive {
+    line-height: 0px;
+}
+.btn {
+    border-radius: 0px;
+}
+.pagination {
+    margin: 0px;
 }

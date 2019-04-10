@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\AttendancesImport;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Attendance;
@@ -15,7 +16,7 @@ class AttendanceController extends Controller
      */
     public function index()
     {
-        $attendances = Attendance::all();
+        $attendances = Attendance::orderBy('id', 'desc')->paginate(50);
         return view('pages.attendance.attendance_log')->with('attendances', $attendances);
     }
 
@@ -37,8 +38,8 @@ class AttendanceController extends Controller
      */
     public function store(Request $request)
     {
-        if($request->hasFile('attendanceSheet')) {
-            $path = $request->file('attendanceSheet')->getRealPath();
+        if($request->hasFile('attendance')) {
+            $path = $request->file('attendance')->getRealPath();
             
         }
     }
@@ -85,21 +86,33 @@ class AttendanceController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $attendance = Attendance::find($id);
+        $attendance->delete();  
+        return redirect('/attendance-log')->with('success', 'Attendance Removed');
+    }
+
+    public function deleteAll(Request $request)
+    {
+        $ids = $request->get('ids');
+        Attendance::destroy($ids);
+        return redirect('/attendance-log')->with('success', 'All Selected Attendances Removed');
     }
 
     public function import(Request $request)
     {
-        $attendances = Excel::toCollection  (new AttendancesImport(), $request->file('attendanceSheet'));
+        /*$attendances = Excel::toCollection(new AttendancesImport(), $request->file('attendance'));
         foreach($attendances[0] as $attendance)
         {
             Attendance::where('id', $attendance[0])->update([
-                'employeeId' => $attendance[1],
-                'fullname' => $attendance[2],
-                'visited' => $attendance[3],
-                'campus' => $attendance[4],
+                'fullname' => $attendance[1],
+                'visited' => $attendance[2],
+                'campus' => $attendance[3],
             ]);
-        }
+        }*/
+        
+
+        Excel::import(new AttendancesImport(), $request->file('attendance'));
         return redirect('/attendance-log')->with('success', 'Attendance Log Imported');
     }
+    
 }

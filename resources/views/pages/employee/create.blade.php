@@ -26,11 +26,15 @@
                 </div>
                 <div class="form-group">
                     {{ Form::label('gender', 'Gender') }}
-                    {{ Form::text('gender', '', ['class' => 'form-control', 'placeholder' => 'Gender']) }}
+                    {{ Form::select('gender', ['Male' => 'Male', 'W' => 'Woman'], null, 
+                        [
+                            'class' => 'form-control', 'placeholder' => 'Gender'
+                        ]) 
+                    }}
                 </div>
                 <div class="form-group"> 
                     {{ Form::label('birthday', 'Birthday') }}
-                    {{ Form::text('birthday', '', ['class' => 'form-control', 'placeholder' => 'Birthday']) }}
+                    {{ Form::date('birthday', '', ['class' => 'form-control', 'placeholder' => 'Birthday']) }}
                 </div> 
             </div>
             <div class="col-md-4">
