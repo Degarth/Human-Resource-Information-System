@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\LeaveType;
+use App\Campus;
 
-class LeaveTypesController extends Controller
+class CampusController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,8 @@ class LeaveTypesController extends Controller
      */
     public function index()
     {
-        $types = LeaveType::orderBy('id', 'desc')->paginate(10);
-        return view('pages.leave.leave_types')->with('types', $types);
+        $campuses = Campus::orderBy('id', 'desc')->paginate(10);
+        return view('pages.campus.view_campus')->with('campuses', $campuses);
     }
 
     /**
@@ -25,7 +25,7 @@ class LeaveTypesController extends Controller
      */
     public function create()
     {
-        return view('pages.leave.add_leave_type');
+        return view('pages.campus.new_campus');
     }
 
     /**
@@ -40,13 +40,13 @@ class LeaveTypesController extends Controller
 
         ]);
 
-        $types = new LeaveType;
-        $types->name = $request->input('name');
-        $types->description = $request->input('description');
-        $types->allowance = $request->input('allowance');
-        $types->save();
-        
-        return redirect('/leave-types')->with('success', $types->name.' - Leave Type Added');
+        $campus = new Campus;
+        $campus->name = $request->input('name');
+        $campus->head = $request->input('head');
+        $campus->description = $request->input('description');
+        $campus->save();
+
+        return redirect('/view-campus')->with('success', $campus->name.' - New Campus Added');
     }
 
     /**
@@ -64,12 +64,12 @@ class LeaveTypesController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @recturn \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        $type = LeaveType::find($id);
-        return view('pages.leave.edit_type')->with('type', $type);
+        $campus = Campus::find($id);
+        return view('pages.campus.edit_campus')->with('campus', $campus);
     }
 
     /**
@@ -85,13 +85,13 @@ class LeaveTypesController extends Controller
 
         ]);
 
-        $types = LeaveType::find($id);
-        $types->name = $request->input('name');
-        $types->description = $request->input('description');
-        $types->allowance = $request->input('allowance');
-        $types->save();
-        
-        return redirect('/leave-types')->with('success', $types->name.' - Leave Type Updated');
+        $campus = Campus::find($id);
+        $campus->name = $request->input('name');
+        $campus->head = $request->input('head');
+        $campus->description = $request->input('description');
+        $campus->save();
+
+        return redirect('/view-campus')->with('success', $campus->name.'- Campus Updated');
     }
 
     /**
@@ -102,11 +102,16 @@ class LeaveTypesController extends Controller
      */
     public function destroy($id)
     {
-
-        $type = LeaveType::find($id);
-        $name = $type->name;
-        $type->delete();
+        $campus = Campus::find($id);
+        $name = $campus->name;
+        $campus->delete();
 
         return redirect('/leave-types')->with('success', $name.' - Leave Type Deleted');
+    }
+
+    public function dashboard() 
+    {
+        $campuses = Campus::all();
+        return view('pages.dashboard')->with('campuses', $campuses);
     }
 }

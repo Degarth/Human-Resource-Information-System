@@ -61,12 +61,12 @@
                     <tfoot>
 
                     </tfoot>
-                </table>
-                <div class="text-center">
-                    {{ $attendances->Links() }}
-                </div>
+                </table> 
             </div>
         </div>
+    </div>
+    <div class="text-center">
+        {{ $attendances->Links() }}
     </div>
 </div>
 </form>

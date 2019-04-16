@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\LeaveType;
+use App\Department;
 
-class LeaveTypesController extends Controller
+class DepartmentsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,8 @@ class LeaveTypesController extends Controller
      */
     public function index()
     {
-        $types = LeaveType::orderBy('id', 'desc')->paginate(10);
-        return view('pages.leave.leave_types')->with('types', $types);
+        $departments = Department::orderBy('id', 'desc')->paginate('10');
+        return view('pages.department.departments')->with('departments', $departments);
     }
 
     /**
@@ -25,7 +25,7 @@ class LeaveTypesController extends Controller
      */
     public function create()
     {
-        return view('pages.leave.add_leave_type');
+        return view('pages.department.add_department');
     }
 
     /**
@@ -40,13 +40,13 @@ class LeaveTypesController extends Controller
 
         ]);
 
-        $types = new LeaveType;
-        $types->name = $request->input('name');
-        $types->description = $request->input('description');
-        $types->allowance = $request->input('allowance');
-        $types->save();
-        
-        return redirect('/leave-types')->with('success', $types->name.' - Leave Type Added');
+        $department = new Department;
+        $department->name = $request->input('name');
+        $department->head = $request->input('head');
+        $department->details = $request->input('details');
+        $department->save();
+
+        return redirect('/departments')->with('success', $department->name.' - New Department Added');
     }
 
     /**
@@ -64,12 +64,12 @@ class LeaveTypesController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @recturn \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        $type = LeaveType::find($id);
-        return view('pages.leave.edit_type')->with('type', $type);
+        $department = Department::find($id);
+        return view('pages.department.update_department')->with('department', $department);
     }
 
     /**
@@ -85,13 +85,13 @@ class LeaveTypesController extends Controller
 
         ]);
 
-        $types = LeaveType::find($id);
-        $types->name = $request->input('name');
-        $types->description = $request->input('description');
-        $types->allowance = $request->input('allowance');
-        $types->save();
-        
-        return redirect('/leave-types')->with('success', $types->name.' - Leave Type Updated');
+        $department = Department::find($id);
+        $department->name = $request->input('name');
+        $department->head = $request->input('head');
+        $department->details = $request->input('details');
+        $department->save();
+
+        return redirect('/departments')->with('success', $department->name.' - Department Updated');
     }
 
     /**
@@ -102,11 +102,11 @@ class LeaveTypesController extends Controller
      */
     public function destroy($id)
     {
+        $department = Department::find($id);
+        $name = $department->name;
+        $department->delete();
 
-        $type = LeaveType::find($id);
-        $name = $type->name;
-        $type->delete();
-
-        return redirect('/leave-types')->with('success', $name.' - Leave Type Deleted');
+        return redirect('/departments')->with('success', $name.' - Department Removed');
     }
+
 }

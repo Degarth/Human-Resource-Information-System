@@ -4,12 +4,12 @@
 
 <div class="header"> 
     <h1 class="page-header">
-        Leave Types
+        Departments
     </h1>
     <ol class="breadcrumb">
         <li><a href="#">Dashboard</a></li>
-        <li><a>Leave</a></li>
-        <li class="active">Types</li>
+        <li><a>Department</a></li>
+        <li class="active">View</li>
     </ol>               
 </div>
 
@@ -21,35 +21,35 @@
 
     <div class="panel panel-primary">
         <div class="panel-heading">
-            Leave Types
+            Department List
         </div>
         <div class="panel-body">
             <div class="table-responsive" style="overflow-y: hidden">
                 <table class="table table-bordered table-hover">
                     <thead>
                         <tr>
-                            <th>Name</th>
-                            <th>Description</th>
-                            <th>Allowance Per Year</th>
+                            <th>Department Name</th>
+                            <th>Details</th>
+                            <th>Department Head</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody class="bg-dark">
-                        @if(count($types) >= 1)
-                            @foreach($types as $type)
+                        @if(count($departments) >= 1)
+                            @foreach($departments as $department)
                                 <tr>
-                                    <td>{{ $type->name }}</td>
-                                    <td>{{ $type->description }}</td>
-                                    <td>{{ $type->allowance }} Days</td>
+                                    <td>{{ $department->name }}</td>
+                                    <td>{{ $department->details }}</td>
+                                    <td>{{ $department->head }}</td>
                                     <td>
-                                        <a class="btn btn-warning" href="/leave-types/{{ $type->id }}/edit">Edit</a> 
-                                        <button class="btn btn-danger" formaction="{{ action('LeaveTypesController@destroy', $type->id) }}" type="submit">Delete</button> 
+                                        <a class="btn btn-warning" href="/departments/{{ $department->id }}/edit">Edit</a> 
+                                        <button class="btn btn-danger" formaction="{{ action('DepartmentsController@destroy', $department->id) }}" type="submit">Delete</button> 
                                     </td>
                                 </tr>
                             @endforeach
                             
                         @else
-                            <p class="alert alert-warning" style="margin:0px;">No Leave Types Found</p>
+                            <p class="alert alert-warning" style="margin:0px;">No Departments Found</p>
                         @endif
                     </tbody>
                     <tfoot>
@@ -57,13 +57,12 @@
                     </tfoot>
                 </table>
                 <div class="text-center">
-                    {{ $types->Links() }}
+                    {{ $departments->Links() }}
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-    
 
 @endsection

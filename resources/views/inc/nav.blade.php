@@ -105,7 +105,7 @@
                 </ul>
             </li>
             <li>
-                <a class="{{ Request::is('add-department') || Request::is('view-department') ? 'active-menu' : null }}">
+                <a class="{{ Request::is('add-department') || Request::is('departments') ? 'active-menu' : null }}">
                     <i class="fa fa-building"></i> Department <span class="fa arrow"></span>
                 </a>
                 <ul class="nav nav-second-level">
@@ -113,7 +113,7 @@
                         <a class="{{ Request::is('add-department') ? 'active-menu' : null }}" href="/add-department">Add Department</a>
                     </li>
                     <li>
-                        <a class="{{ Request::is('view-department') ? 'active-menu' : null }}" href="/view-department">View Department</a>
+                        <a class="{{ Request::is('departments') ? 'active-menu' : null }}" href="/departments">View Department</a>
                     </li>
                 </ul>
             </li>
@@ -132,7 +132,9 @@
                     </li>
                 </ul>
             </li>
-            
+            <li>
+                    @include('inc.messages') 
+            </li>
         </ul>
     </div>
 

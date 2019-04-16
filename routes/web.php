@@ -18,7 +18,7 @@
 //Route::resource('/', 'PagesController');
 
 Route::get('/', 'PagesController@index');
-Route::get('/new-employee', 'PagesController@newEmployee');
+/*Route::get('/new-employee', 'PagesController@newEmployee');
 Route::get('/view-employees', 'PagesController@viewEmployees');
 Route::get('/attendance-log', 'PagesController@attendanceLog');
 Route::get('/upload-attendance', 'PagesController@uploadAttendance');
@@ -31,16 +31,21 @@ Route::get('/add-department', 'PagesController@addDepartment');
 Route::get('/view-department', 'PagesController@viewDepartment');
 Route::get('/attendance-report', 'PagesController@attendanceReport');
 Route::get('/leave-report', 'PagesController@leaveReport');
-Route::get('/profile', 'PagesController@profile');
+Route::get('/profile', 'PagesController@profile');*/
 
 
 Route::delete('/delete-all', 'EmployeesController@deleteAll'); // Delete all products
 Route::resource('/view-employees', 'EmployeesController');
 Route::resource('/new-employee', 'EmployeesController');
-Route::get('/', 'EmployeesController@dashboard');
-Route::get('/upload', 'AttendanceController@import');
+#Route::get('/upload', 'AttendanceController@import');
 Route::resource('/attendance-log', 'AttendanceController');
+Route::get('/upload-attendance', 'AttendanceController@create');
 Route::delete('delete-attendance', 'AttendanceController@deleteAll');
 Route::post('/import', 'AttendanceController@import')->name('import');
 Route::resource('/leaves', 'LeavesController');
+Route::get('add-leave-type', 'LeaveTypesController@create');
 Route::resource('/leave-types', 'LeaveTypesController');
+Route::resource('/view-campus', 'CampusController');
+Route::get('/new-campus', 'CampusController@create');
+Route::resource('/departments', 'DepartmentsController');
+Route::get('/add-department', 'DepartmentsController@create');

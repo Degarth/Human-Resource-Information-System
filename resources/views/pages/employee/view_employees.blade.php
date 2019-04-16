@@ -18,7 +18,6 @@
 <form method="POST">
         @csrf
         @method('DELETE')
-
     
     <div class="row">  
         <div class="col-md-12 col-sm-12 col-xs-12">
@@ -31,7 +30,7 @@
                 </div> 
                 <div class="panel-body" style="margin-top:0px;padding-top:0px"> 
                     <div class="table-responsive" style="overflow-y: hidden;"> 
-                        <table class="table table-striped table-bordered table-hover">
+                        <table class="table table-striped table-bordered table-hover"> <!--id="dataTables-example"-->
                             <thead> 
                                 <tr>
                                     <th><input type="checkbox" class="selectall"></th>
@@ -101,7 +100,13 @@
 </form>
 
 </div>
-
+<!--
+<script>
+    $(document).ready(function () {
+        $('#dataTables-example').dataTable();
+    });
+</script>
+-->
 
 <script type="text/javascript">
     $('.selectall').click( function () {

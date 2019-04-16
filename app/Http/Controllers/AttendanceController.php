@@ -27,7 +27,7 @@ class AttendanceController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.attendance.upload_attendance');
     }
 
     /**

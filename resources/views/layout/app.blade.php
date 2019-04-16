@@ -21,6 +21,8 @@
     <link rel="stylesheet" href="{{asset('https://use.fontawesome.com/releases/v5.6.1/css/all.css')}}" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
     <link rel="stylesheet" href="{{asset('assets/js/Lightweight-Chart/cssCharts.css')}}" />
     <link href="{{ asset('css/styles.css') }}" rel="stylesheet" type="text/css" />
+    <!-- TABLE STYLES
+    <link href="assets/js/dataTables/dataTables.bootstrap.css" rel="stylesheet" />-->
     
     <!-- JQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -29,7 +31,7 @@
 <body>
     <div id="wrapper">
         @include('inc.nav')
-        <div id="page-wrapper">    
+        <div id="page-wrapper"> 
             @yield('content')
         </div>
     </div>
@@ -59,8 +61,10 @@
     
     <!-- Custom Js -->
     <script src="{{asset('assets/js/custom-scripts.js')}}"></script>
-
-    
+    <!-- DATA TABLE SCRIPTS 
+    <script src="assets/js/dataTables/jquery.dataTables.js"></script>
+    <script src="assets/js/dataTables/dataTables.bootstrap.js"></script>-->
+        
     <!-- Chart Js -->
     <script type="text/javascript" src="{{URL::asset('assets/js/Chart.min.')}}"></script>  
     <script type="text/javascript" src="{{URL::asset('assets/js/chartjs.js')}}"></script> 

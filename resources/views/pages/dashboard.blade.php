@@ -43,7 +43,7 @@
             <div class="panel panel-primary">
             <div class="number">
                 <h3>
-                    <h3>3</h3>
+                    <h3>{{ count($campuses) }}</h3>
                     <small>Campus</small>
                 </h3> 
             </div>
@@ -60,7 +60,7 @@
             <div class="panel panel-primary">
             <div class="number">
                 <h3>
-                    <h3>3</h3>
+                    <h3>{{ count($departments) }}</h3>
                     <small>Department</small>
                 </h3> 
             </div>
