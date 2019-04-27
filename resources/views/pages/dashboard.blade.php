@@ -9,7 +9,7 @@
 </div>-->
 <div class="header"> 
     <h1 class="page-header">
-        Dashboard <small>Welcome David James</small>
+        Dashboard <small>Welcome</small>
     </h1>
     <ol class="breadcrumb">
         <li><a>Dashboard</a></li>

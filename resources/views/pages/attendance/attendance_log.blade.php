@@ -37,6 +37,8 @@
                             <th>ID</th>
                             <th>Fullname</th>
                             <th>Date</th>
+                            <th>From</th>
+                            <th>To</th>
                             <th>Campus</th>
                             <th>Action</th>
                         </tr>
@@ -48,7 +50,9 @@
                                     <td><input type="checkbox" name="ids[]" class="selectbox" value="{{ $attendance->id }}"></td>
                                     <td>{{ $attendance->employeeId }}</td>
                                     <td>{{ $attendance->fullname }}</td>
-                                    <td>{{ date('Y-m-d' ,$attendance->visited) }}</td>
+                                    <td>{{ $attendance->visited }}</td>
+                                    <td>{{ $attendance->from }}</td>
+                                    <td>{{ $attendance->to }}</td>
                                     <td>{{ $attendance->campus }}</td>
                                     
                                     <td><button class="btn btn-danger" formaction="{{ action('AttendanceController@destroy', $attendance->id) }}" type="submit" style="margin-bottom: 10px">Delete</button></td>

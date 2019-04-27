@@ -17,9 +17,9 @@ class CreateEmployeesTable extends Migration
             $table->increments('id');
             $table->string('firstname');
             $table->string('lastname');
-            $table->string('campus');
+            $table->string('campus')->nullable();
             $table->string('position');
-            $table->string('department');
+            $table->string('department')->nullable();
             $table->string('email');
             $table->string('gender');
             $table->string('birthday');

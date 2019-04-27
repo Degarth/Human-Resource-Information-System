@@ -72,7 +72,7 @@
                                     @endforeach
                                     
                                 @else
-                                    <p>No employees found</p>
+                                    <p class="alert alert-warning" style="margin:0px;">No Employees Found</p>
                                 @endif
                             </tbody>
                             <tfoot>

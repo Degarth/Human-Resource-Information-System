@@ -13,7 +13,7 @@
     </ol>               
 </div>
 <div id="page-inner">
-    <div class="panel panel-primary" style="padding:20px;background-color:#EDEDED">
+    <div class="panel panel-primary" style="padding:20px;background-color:white"><!--#EDEDED-->
         {!! Form::open(['action' => 'EmployeesController@store', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
             <div class="col-md-4">
                 <div class="form-group">
@@ -26,9 +26,9 @@
                 </div>
                 <div class="form-group">
                     {{ Form::label('gender', 'Gender') }}
-                    {{ Form::select('gender', ['Male' => 'Male', 'W' => 'Woman'], null, 
+                    {{ Form::select('gender', ['Male' => 'Male', 'Woman' => 'Woman'], null, 
                         [
-                            'class' => 'form-control', 'placeholder' => 'Gender'
+                            'class' => 'form-control', 'placeholder' => '-Gender-'
                         ]) 
                     }}
                 </div>
@@ -62,11 +62,19 @@
                 </div>
                 <div class="form-group">
                     {{ Form::label('department', 'Department') }}
-                    {{ Form::text('department', '', ['class' => 'form-control', 'placeholder' => 'Department']) }}
+                    {{ Form::select('department', $departments, null, 
+                        [
+                            'class' => 'form-control', 'placeholder' => '-Department-'
+                        ]) 
+                    }}
                 </div> 
                 <div class="form-group">
                     {{ Form::label('campus', 'Campus') }}
-                    {{ Form::text('campus', '', ['class' => 'form-control', 'placeholder' => 'Campus']) }}
+                    {{ Form::select('campus', $campuses, null, 
+                        [
+                            'class' => 'form-control', 'placeholder' => '-Campus-'
+                        ]) 
+                    }}
                 </div>
                 <div class="form-group">
                     {{ Form::label('Photo') }}

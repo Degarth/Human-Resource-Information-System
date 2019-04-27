@@ -14,7 +14,7 @@
 </div>
 
 <div id="page-inner">
-    <div class="panel panel-primary" style="padding:20px;background-color:#EDEDED">
+    <div class="panel panel-primary" style="padding:20px;background-color:white">
         {!! Form::open(['action' => ['CampusController@update', $campus->id], 'method' => 'POST']) !!}
         <div class="form-group" style="padding-right:33%">
             <div class="row" style="padding: 5px">

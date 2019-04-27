@@ -17,8 +17,10 @@ class CreateAttendancesTable extends Migration
             $table->increments('id');
             $table->integer('employeeId');
             $table->string('fullname');
-            $table->string('visited');
+            $table->date('visited');
             $table->string('campus');
+            $table->time('from');
+            $table->time('to');
             $table->timestamps();
         });
     }

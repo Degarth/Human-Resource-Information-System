@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Employee;
+use App\Campus;
+use App\Department;
 
 class EmployeesController extends Controller
 {
@@ -16,7 +18,7 @@ class EmployeesController extends Controller
     public function index()
     {
         $employees = Employee::orderBy('id', 'desc')->paginate(20);
-        return view('pages.employee.view_employees')->with('employees', $employees);
+        return view('pages.employee.view_employees', compact('employees'));
     }
 
     /**
@@ -26,7 +28,9 @@ class EmployeesController extends Controller
      */   
     public function create()
     {
-        return view('pages.employee.create');
+        $departments = Department::pluck('name', 'name');
+        $campuses = Campus::pluck('name', 'name');
+        return view('pages.employee.create', compact('departments', 'campuses'));
     }
 
     /**
@@ -40,9 +44,9 @@ class EmployeesController extends Controller
         $this->validate($request, [
             'firstname' => 'required',
             'lastname' => 'required',
-            'campus' => 'required',
+            #'campus' => 'required',
             'position' => 'required',
-            'department' => 'required',
+            #'department' => 'required',
             'email' => 'required',
             'gender' => 'required',
             'birthday' => 'required',
@@ -107,8 +111,10 @@ class EmployeesController extends Controller
      */
     public function edit($id)
     {
+        $departments = Department::pluck('name', 'name');
+        $campuses = Campus::pluck('name', 'name');
         $employee = Employee::find($id);
-        return view('pages.employee.edit')->with('employee', $employee);
+        return view('pages.employee.edit', compact('departments', 'campuses', 'employee'));
     }
 
     /**
@@ -123,9 +129,9 @@ class EmployeesController extends Controller
         $this->validate($request, [
             'firstname' => 'required',
             'lastname' => 'required',
-            'campus' => 'required',
+            #'campus' => 'required',
             'position' => 'required',
-            'department' => 'required',
+            #'department' => 'required',
             'email' => 'required',
             'gender' => 'required',
             'birthday' => 'required',
@@ -167,7 +173,7 @@ class EmployeesController extends Controller
         }
         $employee->save();
 
-        return redirect('/view-employees')->with('success', 'Employee Added');
+        return redirect('/view-employees')->with('success', 'Employee Updated');
     }
 
     /**

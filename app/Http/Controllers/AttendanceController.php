@@ -3,9 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Imports\AttendancesImport;
+use App\Exports\AttendancesExport;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Employee;
 use App\Attendance;
+use App\Campus;
+use DB; 
 
 class AttendanceController extends Controller
 {
@@ -30,6 +34,21 @@ class AttendanceController extends Controller
         return view('pages.attendance.upload_attendance');
     }
 
+    public function createExport()
+    {
+        return view('pages.attendance.export_attendance');
+    }
+
+    public function add_one()
+    {
+        $campuses = Campus::pluck('name', 'name');
+        $employees = DB::table('employees')
+        ->select(DB::raw("id,CONCAT(firstname,' ',lastname) as fullname"))
+        ->orderBy('lastname','asc')
+        ->pluck('fullname','id');
+        return view('pages.attendance.add_attendance', compact('campuses', 'employees'));
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -38,10 +57,27 @@ class AttendanceController extends Controller
      */
     public function store(Request $request)
     {
-        if($request->hasFile('attendance')) {
+        /*if($request->hasFile('attendance')) {
             $path = $request->file('attendance')->getRealPath();
-            
-        }
+        }*/
+
+        $this->validate($request, [
+
+        ]);
+
+        $attendance = new Attendance;
+        $attendance->employeeId = $request->input('employeeId');
+        $id = $attendance->employeeId;
+        $employee = Employee::find($id);
+        $fullname = $employee->firstname.' '.$employee->lastname;
+        $attendance->fullname = $fullname;
+        $attendance->visited = $request->input('visited');
+        $attendance->campus = $request->input('campus');
+        $attendance->from = $request->input('from');
+        $attendance->to = $request->input('to');
+        $attendance->save();
+        
+        return redirect('/attendance-log')->with('success', $attendance->employeeId.' - Attendance Added');
     }
 
     /**
@@ -113,6 +149,11 @@ class AttendanceController extends Controller
 
         Excel::import(new AttendancesImport(), $request->file('attendance'));
         return redirect('/attendance-log')->with('success', 'Attendance Log Imported');
+    }
+
+    public function export()
+    {
+        return Excel::download(new AttendancesExport, 'Attendances.xlsx');
     }
     
 }

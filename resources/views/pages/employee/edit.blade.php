@@ -15,7 +15,7 @@
 </div>
 
 <div id="page-inner">
-    <div class="panel panel-primary" style="padding:20px;background-color:#EDEDED">
+    <div class="panel panel-primary" style="padding:20px;background-color:white">
         {!! Form::open(['action' => ['EmployeesController@update', $employee->id], 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
             <div class="col-md-4">
                 <div class="form-group">
@@ -28,7 +28,7 @@
                 </div>
                 <div class="form-group">
                     {{ Form::label('gender', 'Gender') }}
-                    {{ Form::select('gender', ['Male' => 'Male', 'W' => 'Woman'], $employee->gender, 
+                    {{ Form::select('gender', ['Male' => 'Male', 'Woman' => 'Woman'], $employee->gender, 
                         [
                             'class' => 'form-control', 'placeholder' => 'Gender'
                         ]) 
@@ -60,14 +60,44 @@
                     {{ Form::label('position', 'Position') }}
                     {{ Form::text('position', $employee->position, ['class' => 'form-control', 'placeholder' => 'Position']) }}
                 </div>
-                <div class="form-group">
-                    {{ Form::label('department', 'Department') }}
-                    {{ Form::text('department', $employee->department, ['class' => 'form-control', 'placeholder' => 'Department']) }}
-                </div> 
-                <div class="form-group">
-                    {{ Form::label('campus', 'Campus') }}
-                    {{ Form::text('campus', $employee->campus, ['class' => 'form-control', 'placeholder' => 'Campus']) }}
-                </div>
+                @if($employee->department != null)
+                    <div class="form-group">
+                        {{ Form::label('department', 'Department') }}
+                        {{ Form::select('department', $departments, $employee->department, 
+                            [
+                                'class' => 'form-control', 'placeholder' => '-Department-'
+                            ]) 
+                        }}
+                    </div> 
+                @else
+                    <div class="form-group">
+                        {{ Form::label('department', 'Department') }}
+                        {{ Form::select('department', $departments, null, 
+                            [
+                                'class' => 'form-control', 'placeholder' => '-Department-'
+                            ]) 
+                        }}
+                    </div> 
+                @endif
+                @if($employee->campus != null)
+                    <div class="form-group">
+                        {{ Form::label('campus', 'Campus') }}
+                        {{ Form::select('campus', $campuses, $employee->campus, 
+                            [
+                                'class' => 'form-control', 'placeholder' => '-Campus-'
+                            ]) 
+                        }}
+                    </div>
+                @else
+                    <div class="form-group">
+                        {{ Form::label('campus', 'Campus') }}
+                        {{ Form::select('campus', $campuses, null, 
+                            [
+                                'class' => 'form-control', 'placeholder' => '-Campus-'
+                            ]) 
+                        }}
+                    </div>
+                @endif
             </div>
             <div class="col-md-4"> 
                 {{ Form::label('Photo') }}   

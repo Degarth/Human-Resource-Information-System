@@ -40,8 +40,11 @@ Route::resource('/new-employee', 'EmployeesController');
 #Route::get('/upload', 'AttendanceController@import');
 Route::resource('/attendance-log', 'AttendanceController');
 Route::get('/upload-attendance', 'AttendanceController@create');
+Route::get('/export-attendance', 'AttendanceController@createExport');
+Route::get('/add-attendance', 'AttendanceController@add_one');
 Route::delete('delete-attendance', 'AttendanceController@deleteAll');
 Route::post('/import', 'AttendanceController@import')->name('import');
+Route::post('/export', 'AttendanceController@export')->name('export');
 Route::resource('/leaves', 'LeavesController');
 Route::get('add-leave-type', 'LeaveTypesController@create');
 Route::resource('/leave-types', 'LeaveTypesController');
@@ -49,3 +52,7 @@ Route::resource('/view-campus', 'CampusController');
 Route::get('/new-campus', 'CampusController@create');
 Route::resource('/departments', 'DepartmentsController');
 Route::get('/add-department', 'DepartmentsController@create');
+
+Route::resource('/attendance-report', 'AttendanceReportController');
+Route::get('/search', 'AttendanceReportController@search');
+

@@ -43,8 +43,8 @@
         
         <ul class="nav" id="main-menu">
             <li>
-                    <a><img id="profile-img" src="{{URL::asset('/img/ss.jpg')}}" alt="profile Pic" height="50" width="50" style="margin:0px 10px 0px 10px; border-radius:50%; border: 3px solid rgb(56, 98, 187);">
-                        Welcome David
+                    <a><img id="profile-img" src="{{URL::asset('/img/jj.jpg')}}" alt="profile Pic" height="70" width="auto" style="margin:0px 10px 0px 10px; border-radius: 20%; border: 3px solid grey;"> <!--rgb(56, 98, 187)-->
+                        Welcome John
                     </a>  
             </li>
             <li>
@@ -63,13 +63,19 @@
             </li> 
                 
             <li>
-                <a class="{{ Request::is('attendance-log') || Request::is('upload-attendance') ? 'active-menu' : null }}"><i class="fa fa-clock"></i> Attendace<span class="fa arrow"></span></a>
+                <a class="{{ Request::is('attendance-log') || Request::is('upload-attendance') || Request::is('add-attendance') || Request::is('export-attendance') ? 'active-menu' : null }}"><i class="fa fa-clock"></i> Attendace<span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
                     <li>
                         <a class="{{ Request::is('attendance-log') ? 'active-menu' : null }}" href="/attendance-log">Attendance Log</a>
                     </li>
                     <li>
+                        <a class="{{ Request::is('add-attendance') ? 'active-menu' : null }}" href="/add-attendance">Add One Attendance</a>
+                    </li>
+                    <li>
                         <a class="{{ Request::is('upload-attendance') ? 'active-menu' : null }}" href="/upload-attendance">Upload Attendance</a>
+                    </li>
+                    <li>
+                        <a class="{{ Request::is('export-attendance') ? 'active-menu' : null }}" href="/export-attendance">Export Attendance</a>
                     </li>
                 </ul>
              </li>	
