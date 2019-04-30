@@ -36,15 +36,15 @@ class AttendanceReportController extends Controller
                                     ->where('fullname', $fullname)
                                     ->where(function ($query) use ($date_from, $date_to) {
                                         $query->whereBetween('visited', array($date_from, $date_to));
-                                    })->paginate(20);
+                                    })->orderBy('visited', 'asc')->paginate(20);
 
         $attendances->appends(['fullname' => $fullname, 'visited' => array($date_from, $date_to)]);
-        
+        $hours = 0;
         foreach($attendances as $attendance)
         {
-            $hours = date('H:i', (strtotime($attendance->to) - strtotime($attendance->from)));
+            $hours += strtotime($attendance->to) - strtotime($attendance->from);
         }
-        return view('pages.report.attendance_report', ['attendances' => $attendances], compact('employees', 'fullname'));
+        return view('pages.report.attendance_report', ['attendances' => $attendances], compact('employees', 'fullname', 'hours', 'date_from', 'date_to'));
     }
 
     /**

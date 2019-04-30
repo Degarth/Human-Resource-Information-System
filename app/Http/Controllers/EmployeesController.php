@@ -29,7 +29,7 @@ class EmployeesController extends Controller
     public function create()
     {
         $departments = Department::pluck('name', 'name');
-        $campuses = Campus::pluck('name', 'name');
+        $campuses = Campus::pluck('name', 'id');
         return view('pages.employee.create', compact('departments', 'campuses'));
     }
 
@@ -76,7 +76,7 @@ class EmployeesController extends Controller
         $employee = new Employee;
         $employee->firstname = $request->input('firstname');
         $employee->lastname = $request->input('lastname');
-        $employee->campus = $request->input('campus');
+        $employee->campus_id = $request->input('campus_id');
         $employee->position = $request->input('position');
         $employee->department = $request->input('department');
         $employee->email = $request->input('email');
@@ -112,7 +112,7 @@ class EmployeesController extends Controller
     public function edit($id)
     {
         $departments = Department::pluck('name', 'name');
-        $campuses = Campus::pluck('name', 'name');
+        $campuses = Campus::pluck('name', 'id');
         $employee = Employee::find($id);
         return view('pages.employee.edit', compact('departments', 'campuses', 'employee'));
     }
@@ -159,7 +159,7 @@ class EmployeesController extends Controller
         $employee = Employee::find($id);
         $employee->firstname = $request->input('firstname');
         $employee->lastname = $request->input('lastname');
-        $employee->campus = $request->input('campus');
+        $employee->campus_id = $request->input('campus_id');
         $employee->position = $request->input('position');
         $employee->department = $request->input('department');
         $employee->email = $request->input('email');

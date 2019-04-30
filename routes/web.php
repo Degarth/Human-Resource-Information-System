@@ -17,7 +17,7 @@
 
 //Route::resource('/', 'PagesController');
 
-Route::get('/', 'PagesController@index');
+#Route::get('/', 'PagesController@index');
 /*Route::get('/new-employee', 'PagesController@newEmployee');
 Route::get('/view-employees', 'PagesController@viewEmployees');
 Route::get('/attendance-log', 'PagesController@attendanceLog');
@@ -45,7 +45,7 @@ Route::get('/add-attendance', 'AttendanceController@add_one');
 Route::delete('delete-attendance', 'AttendanceController@deleteAll');
 Route::post('/import', 'AttendanceController@import')->name('import');
 Route::post('/export', 'AttendanceController@export')->name('export');
-Route::resource('/leaves', 'LeavesController');
+Route::resource('/view-leaves', 'LeavesController');
 Route::get('add-leave-type', 'LeaveTypesController@create');
 Route::resource('/leave-types', 'LeaveTypesController');
 Route::resource('/view-campus', 'CampusController');
@@ -55,4 +55,8 @@ Route::get('/add-department', 'DepartmentsController@create');
 
 Route::resource('/attendance-report', 'AttendanceReportController');
 Route::get('/search', 'AttendanceReportController@search');
+Route::resource('/leave-report', 'LeaveReportController');
 
+Auth::routes();
+
+Route::get('/', 'DashboardController@index');

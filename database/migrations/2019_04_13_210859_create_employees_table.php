@@ -17,7 +17,8 @@ class CreateEmployeesTable extends Migration
             $table->increments('id');
             $table->string('firstname');
             $table->string('lastname');
-            $table->string('campus')->nullable();
+            $table->integer('campus_id')->unsigned();
+            $table->foreign('campus_id')->references('id')->on('campuses');
             $table->string('position');
             $table->string('department')->nullable();
             $table->string('email');

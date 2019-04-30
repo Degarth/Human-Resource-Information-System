@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Leave;
+use App\LeaveType;
+use App\Employee;
+use DB;
 
 class LeaveReportController extends Controller
 {
@@ -13,7 +17,12 @@ class LeaveReportController extends Controller
      */
     public function index()
     {
-        //
+        $leaves = LeaveType::orderBy('id', 'desc')->paginate(20);
+        $employees = DB::table('employees')
+        ->select(DB::raw("id,CONCAT(firstname,' ',lastname) as fullname"))
+        ->orderBy('lastname','asc')
+        ->pluck('fullname','id');
+        return view('pages.report.leave_report', compact('leaves', 'employees'));
     }
 
     /**

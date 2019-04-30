@@ -75,7 +75,7 @@
                                 <tbody>
                                     <tr>
                                         <td>Campus:</td>
-                                        <td>{{ $employee->campus }}
+                                        <td>{{ $employee->campus->name }}
                                     </tr>
                                     <tr>
                                         <td>Department:</td>

@@ -69,8 +69,8 @@
                     }}
                 </div> 
                 <div class="form-group">
-                    {{ Form::label('campus', 'Campus') }}
-                    {{ Form::select('campus', $campuses, null, 
+                    {{ Form::label('campus_id', 'Campus') }}
+                    {{ Form::select('campus_id', $campuses, null, 
                         [
                             'class' => 'form-control', 'placeholder' => '-Campus-'
                         ]) 

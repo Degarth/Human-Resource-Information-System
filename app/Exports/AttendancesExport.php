@@ -13,7 +13,7 @@ class AttendancesExport implements FromCollection, WithHeadings
     */
     public function collection()
     {
-        return Attendance::all();
+        return Attendance::orderBy('visited', 'desc')->get();
     }
 
     public function headings(): array

@@ -20,7 +20,7 @@ class AttendanceController extends Controller
      */
     public function index()
     {
-        $attendances = Attendance::orderBy('id', 'desc')->paginate(50);
+        $attendances = Attendance::orderBy('visited', 'desc')->paginate(50);
         return view('pages.attendance.attendance_log')->with('attendances', $attendances);
     }
 
