@@ -10,4 +10,9 @@ class Campus extends Model
     {
         return $this->hasOne('App\Employee');
     }
+
+    public function attendance()
+    {
+        return $this->hasMany('App\Attendance');
+    }
 }

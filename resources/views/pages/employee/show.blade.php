@@ -75,11 +75,19 @@
                                 <tbody>
                                     <tr>
                                         <td>Campus:</td>
-                                        <td>{{ $employee->campus->name }}
+                                        @if($employee->campus_id == null)
+                                            <td>Not Set</td>
+                                        @else
+                                            <td>{{ $employee->campus->name }}</td>
+                                        @endif
                                     </tr>
                                     <tr>
                                         <td>Department:</td>
-                                        <td>{{ $employee->department }}
+                                        @if($employee->department_id == null)
+                                            <td>Not Set</td>
+                                        @else
+                                            <td>{{ $employee->department->name }}</td>
+                                        @endif
                                     </tr>
                                     <tr>
                                         <td>Position:</td>

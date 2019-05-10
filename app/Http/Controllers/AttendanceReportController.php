@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use DB;
+use App\Employee;
 use App\Attendance;
+use App\Campus;
+use DB; 
 
 class AttendanceReportController extends Controller
 {
@@ -18,7 +20,7 @@ class AttendanceReportController extends Controller
         $employees = DB::table('employees')
         ->select(DB::raw("id,CONCAT(firstname,' ',lastname) as fullname"))
         ->orderBy('lastname','asc')
-        ->pluck('fullname','fullname');
+        ->pluck('fullname','id');
         $attendances = Attendance::orderBy('id', 'desc')->paginate(50);
         return view('pages.report.attendance_report', compact('employees', 'attendances'));
     }
@@ -28,23 +30,27 @@ class AttendanceReportController extends Controller
         $employees = DB::table('employees')
         ->select(DB::raw("id,CONCAT(firstname,' ',lastname) as fullname"))
         ->orderBy('lastname','asc')
-        ->pluck('fullname','fullname');
+        ->pluck('fullname','id');
         $fullname = $request->input('fullname');
         $date_from = $request->input('date_from');
         $date_to = $request->input('date_to');
-        $attendances = DB::table('attendances')
-                                    ->where('fullname', $fullname)
+        $attendances = Attendance::with('campus')
+                                    ->where('employee_id', $fullname)
                                     ->where(function ($query) use ($date_from, $date_to) {
                                         $query->whereBetween('visited', array($date_from, $date_to));
                                     })->orderBy('visited', 'asc')->paginate(20);
 
-        $attendances->appends(['fullname' => $fullname, 'visited' => array($date_from, $date_to)]);
+        $attendances->appends(['employee_id' => $fullname, 'visited' => array($date_from, $date_to)]);
         $hours = 0;
         foreach($attendances as $attendance)
         {
             $hours += strtotime($attendance->to) - strtotime($attendance->from);
+
         }
-        return view('pages.report.attendance_report', ['attendances' => $attendances], compact('employees', 'fullname', 'hours', 'date_from', 'date_to'));
+        $e = Employee::find($fullname);
+        $firstname = $e->firstname;
+        $lastname = $e->lastname;
+        return view('pages.report.attendance_report', ['attendances' => $attendances], compact('employees', 'firstname', 'lastname', 'fullname', 'hours', 'date_from', 'date_to'));
     }
 
     /**

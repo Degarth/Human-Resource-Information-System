@@ -17,10 +17,11 @@ class CreateEmployeesTable extends Migration
             $table->increments('id');
             $table->string('firstname');
             $table->string('lastname');
-            $table->integer('campus_id')->unsigned();
-            $table->foreign('campus_id')->references('id')->on('campuses');
+            $table->integer('campus_id')->unsigned()->nullable();
+            $table->foreign('campus_id')->references('id')->on('campuses')->onDelete('SET NULL');
             $table->string('position');
-            $table->string('department')->nullable();
+            $table->integer('department_id')->unsigned()->nullable();
+            $table->foreign('department_id')->references('id')->on('departments')->onDelete('SET NULL');
             $table->string('email');
             $table->string('gender');
             $table->string('birthday');

@@ -36,12 +36,13 @@ class AttendanceController extends Controller
 
     public function createExport()
     {
-        return view('pages.attendance.export_attendance');
+        $attendances = Attendance::all();
+        return view('pages.attendance.export_attendance', compact('attendances'));
     }
 
     public function add_one()
     {
-        $campuses = Campus::pluck('name', 'name');
+        $campuses = Campus::pluck('name', 'id');
         $employees = DB::table('employees')
         ->select(DB::raw("id,CONCAT(firstname,' ',lastname) as fullname"))
         ->orderBy('lastname','asc')
@@ -66,18 +67,14 @@ class AttendanceController extends Controller
         ]);
 
         $attendance = new Attendance;
-        $attendance->employeeId = $request->input('employeeId');
-        $id = $attendance->employeeId;
-        $employee = Employee::find($id);
-        $fullname = $employee->firstname.' '.$employee->lastname;
-        $attendance->fullname = $fullname;
+        $attendance->employee_id = $request->input('employee_id');
         $attendance->visited = $request->input('visited');
-        $attendance->campus = $request->input('campus');
+        $attendance->campus_id = $request->input('campus_id');
         $attendance->from = $request->input('from');
         $attendance->to = $request->input('to');
         $attendance->save();
         
-        return redirect('/attendance-log')->with('success', $attendance->employeeId.' - Attendance Added');
+        return redirect('/attendance-log')->with('success', $attendance->employee_id.' - Attendance Added');
     }
 
     /**

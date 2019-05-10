@@ -60,10 +60,10 @@
                     {{ Form::label('position', 'Position') }}
                     {{ Form::text('position', $employee->position, ['class' => 'form-control', 'placeholder' => 'Position']) }}
                 </div>
-                @if($employee->department != null)
+                @if(count($departments) > 0)
                     <div class="form-group">
-                        {{ Form::label('department', 'Department') }}
-                        {{ Form::select('department', $departments, $employee->department, 
+                        {{ Form::label('department_id', 'Department') }}
+                        {{ Form::select('department_id', $departments, $employee->department_id, 
                             [
                                 'class' => 'form-control', 'placeholder' => '-Department-'
                             ]) 
@@ -71,15 +71,11 @@
                     </div> 
                 @else
                     <div class="form-group">
-                        {{ Form::label('department', 'Department') }}
-                        {{ Form::select('department', $departments, null, 
-                            [
-                                'class' => 'form-control', 'placeholder' => '-Department-'
-                            ]) 
-                        }}
+                        {{ Form::label('department_id', 'Department') }}<br/>
+                        No Department Found
                     </div> 
                 @endif
-                @if($employee->campus != null)
+                @if(count($campuses) > 0)
                     <div class="form-group">
                         {{ Form::label('campus_id', 'Campus') }}
                         {{ Form::select('campus_id', $campuses, $employee->campus_id, 
@@ -90,12 +86,8 @@
                     </div>
                 @else
                     <div class="form-group">
-                        {{ Form::label('campus_id', 'Campus') }}
-                        {{ Form::select('campus_id', $campuses, null, 
-                            [
-                                'class' => 'form-control', 'placeholder' => '-Campus-'
-                            ]) 
-                        }}
+                        {{ Form::label('campus_id', 'Campus') }}<br/>
+                        No Campus Found
                     </div>
                 @endif
             </div>

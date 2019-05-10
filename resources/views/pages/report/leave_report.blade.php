@@ -17,7 +17,7 @@
     <div class="panel panel-primary" style="padding:20px;background-color:white">
        
         
-        {!! Form::open(['action' => 'AttendanceReportController@search', 'method' => 'GET']) !!}
+        {!! Form::open(['action' => 'LeaveReportController@search', 'method' => 'GET']) !!}
             <div class="row" style="padding: 5px">
                 <div class="col-md-5 text-right">
                     <div class="text-left">
@@ -39,37 +39,47 @@
         
         <br/>
             
-            <div class="table-responsive" style="overflow-y: hidden;">
-                <table class="table table-striped table-bordered table-hover">
-                    @if(count($leaves) > 0)
+        <div class="table-responsive" style="overflow-y: hidden;">
+            @if(count($leaves) > 0)
+                <table class="table table-striped table-bordered table-hover">        
                     <thead>
                         <tr>
                             <th>Name</th>
-                            <th>Vacation</th>
-                            <th>Medical</th>
-                            <th>Unpaid</th>
-                            <th>Paid</th>
-                            <th>Maternity</th>
+                            @foreach($types as $type)
+                                @if($type->id != null)
+                                    <th>{{ $type->name }}</th>
+                                @else
+                                    <th>Other</th>
+                                @endif
+                            @endforeach
                         </tr>
                     </thead>
                     <tbody>
-                        
-                            @foreach($leaves as $leave)
+                            @foreach($leaves->unique('user_id') as $leave)
+                  
                                 <tr>
-                                    <td>{{ $leave->name }}</td>
-                                    <td>2</td>
-                                    <td>2</td>
-                                    <td>1</td>
-                                    <td>1</td>
-                                    <td>0</td>
+                                    <td>{{ $leave->user->email }}</td>
+                                    @foreach($types as $type)
+                                        <td>{{$leaves->where('type_id', '=', $type->id)
+                                        ->where('user_id', '=', $leave->user->id)
+                                        ->where('status', '=', 'Approved')->count()}}</td>
+                                    @endforeach
                                 </tr>
+                                
                             @endforeach
-                        @else
-                            <p class="alert alert-warning" style="margin:0px;">No Report Data</p>
-                        @endif
-                    </tbody>       
+                        
+                    </tbody> 
+                        
                 </table>
-            </div>
+                <div class="text-center">
+                    {{ $leaves->Links() }}
+                </div>
+            @else
+                <div class="panel panel-primary" style="padding:20px;background-color:white">
+                    <p class="alert alert-warning" style="margin:0px;">No Report Data</p>
+                </div>
+            @endif 
+        </div>
     </div>
 </div>
 

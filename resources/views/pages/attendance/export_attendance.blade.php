@@ -22,7 +22,12 @@
                 <div class="form-group">
                     {{ Form::label('Excel File') }}
                 </div>
-                {{ Form::submit('Export', ['class' => 'btn btn-success', 'style' => 'border-radius:0']) }}
+                @if(count($attendances) > 0)
+                    {{ Form::submit('Export', ['class' => 'btn btn-success', 'style' => 'border-radius:0']) }}
+                @else
+                    {{ Form::submit('Export', ['class' => 'btn btn-success', 'style' => 'border-radius:0', 'disabled' => 'disabled']) }}
+                    <br/><br/><p class="alert alert-warning" style="margin:0px;">Button disabled because no attendance data inserted</p>
+                @endif
             {!! Form::close() !!}
         </div>
     </div>

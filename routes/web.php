@@ -46,6 +46,10 @@ Route::delete('delete-attendance', 'AttendanceController@deleteAll');
 Route::post('/import', 'AttendanceController@import')->name('import');
 Route::post('/export', 'AttendanceController@export')->name('export');
 Route::resource('/view-leaves', 'LeavesController');
+Route::get('leave-application', 'LeavesController@application');
+Route::get('my-leaves', 'LeavesController@myLeaves');
+Route::get('/approve/{id}', 'LeavesController@approve');
+Route::get('/reject/{id}', 'LeavesController@reject');
 Route::get('add-leave-type', 'LeaveTypesController@create');
 Route::resource('/leave-types', 'LeaveTypesController');
 Route::resource('/view-campus', 'CampusController');
@@ -56,6 +60,7 @@ Route::get('/add-department', 'DepartmentsController@create');
 Route::resource('/attendance-report', 'AttendanceReportController');
 Route::get('/search', 'AttendanceReportController@search');
 Route::resource('/leave-report', 'LeaveReportController');
+Route::get('/search-leave', 'LeaveReportController@search');
 
 Auth::routes();
 

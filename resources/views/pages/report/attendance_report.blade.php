@@ -54,19 +54,15 @@
             <div class="row">
                 <div class="col-md-2" style="margin:0px 20px 20px 20px; padding:0px">
                     <p><i class="fa fa-user"></i>Employee Name</p>
-                    <h4 style="padding:0px">{{ $fullname }}</h4>
+                    <h4 style="padding:0px">{{ $firstname }} {{ $lastname }}</h4>
                 </div>
                 <div class="col-md-2" style="margin:0px 20px 20px 20px; padding:0px">
-                    <p><i class="fa fa-calendar"></i>Working</p>
-                    <h4 style="padding:0px">20 Days</h4>
-                </div>
-                <div class="col-md-2" style="margin:0px 20px 20px 20px; padding:0px">
-                    <p><i class="fa fa-user"></i>Worked</p>
-                    <h4 style="padding:0px">{{ count($attendances) }} Days</h4>
+                    <p><i class="fa fa-calendar"></i>Worked</p>
+                    <h4 style="padding:0px">{{ count($attendances) }} Day(s)</h4>
                 </div>
                 <div class="col-md-2" style="margin:0px 20px 20px 20px; padding:0px">
                     <p><i class="fa fa-user"></i>Total Hours</p>
-                    <h4 style="padding:0px">{{ floor($hours / 3600) }} Hours</h4>
+                    <h4 style="padding:0px">{{ floor($hours / 3600) }} Hour(s)</h4>
                 </div>
             </div>
             
@@ -91,7 +87,7 @@
                                     <td>{{ $attendance->from }}</td>
                                     <td>{{ $attendance->to }}</td>
                                     <td>{{ date('H:i', (strtotime($attendance->to) - strtotime($attendance->from))) }} Hours</td>
-                                    <td>{{ $attendance->campus }}</td>
+                                    <td>{{ $attendance->campus->name }}</td>
                                     <td>present</td>
                                 </tr>
                             @endforeach

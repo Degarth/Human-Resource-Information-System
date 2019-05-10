@@ -107,10 +107,16 @@
              </li>	
                     
             <li>
-                <a class="{{ Request::is('add-leave-type') || Request::is('leave-types') || Request::is('view-leaves') ? 'active-menu' : null }}">
+                <a class="{{ Request::is('add-leave-type') || Request::is('leave-types') || Request::is('view-leaves') || Request::is('my-leaves') || Request::is('leave-application') ? 'active-menu' : null }}">
                     <i class="fa fa-bed"></i> Leave<span class="fa arrow"></span>
                 </a>
                 <ul class="nav nav-second-level">
+                    <li>
+                        <a class="{{ Request::is('leave-application') ? 'active-menu' : null }}" href="/leave-application">Leave Application</a>
+                    </li>
+                    <li>
+                        <a class="{{ Request::is('my-leaves') ? 'active-menu' : null }}" href="/my-leaves">My Leaves</a>
+                    </li>
                     <li>
                         <a class="{{ Request::is('add-leave-type') ? 'active-menu' : null }}" href="/add-leave-type">Add Leave Type</a>
                     </li>

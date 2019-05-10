@@ -14,15 +14,16 @@
 </div>
 
 <div id="page-inner">
+    @if(count($employees) > 0 && count($campuses) > 0)
     <div class="panel panel-primary" style="padding:20px;background-color:white">
         {!! Form::open(['action' => 'AttendanceController@store', 'method' => 'POST']) !!}
         <div class="form-group" style="padding-right:33%">
             <div class="row" style="padding: 5px">
                 <div class="col-md-6 text-right" style="padding-top: 5px">
-                    {{ Form::label('employeeId', 'Employee') }}
+                    {{ Form::label('employee_id', 'Employee') }}
                 </div>
                 <div class="col-md-6 text-left">
-                    {{ Form::select('employeeId', $employees, null, 
+                    {{ Form::select('employee_id', $employees, null, 
                         [
                             'class' => 'form-control', 'placeholder' => '-Employee-'
                         ]) 
@@ -55,10 +56,10 @@
             </div>
             <div class="row" style="padding: 5px">
                 <div class="col-md-6 text-right" style="padding-top: 5px">
-                    {{ Form::label('campus', 'Campus') }}
+                    {{ Form::label('campus_id', 'Campus') }}
                 </div>
                 <div class="col-md-6 text-left">
-                    {{ Form::select('campus', $campuses, null, 
+                    {{ Form::select('campus_id', $campuses, null, 
                         [
                             'class' => 'form-control', 'placeholder' => '-Campus-'
                         ]) 
@@ -71,6 +72,13 @@
         </div>
         {!! Form::close() !!}
     </div>
+    @else
+    <div class="panel panel-primary" style="padding:20px;background-color:white">
+        <p class="alert alert-warning" style="margin:0px;">No Employees or Campus Found</p><br/>
+        <a href="/view-employees/create" class="btn btn-success" >Add New Employee</a>
+        <a href="/new-campus" class="btn btn-success" >Add Campus</a>
+    </div>
+    @endif
 </div>
 
 

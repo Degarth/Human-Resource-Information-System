@@ -106,7 +106,7 @@ class CampusController extends Controller
         $name = $campus->name;
         $campus->delete();
 
-        return redirect('/leave-types')->with('success', $name.' - Leave Type Deleted');
+        return redirect('/view-campus')->with('success', $name.' - Campus Deleted');
     }
 
     public function dashboard() 

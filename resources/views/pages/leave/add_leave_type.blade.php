@@ -7,7 +7,7 @@
         Add Leave Type
     </h1>
     <ol class="breadcrumb">
-        <li><a href="#">Dashboard</a></li>
+        <li><a href="/">Dashboard</a></li>
         <li><a>Leave</a></li>
         <li class="active">Add</li>
     </ol>               

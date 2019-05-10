@@ -17,12 +17,28 @@ class LeaveReportController extends Controller
      */
     public function index()
     {
-        $leaves = LeaveType::orderBy('id', 'desc')->paginate(20);
-        $employees = DB::table('employees')
-        ->select(DB::raw("id,CONCAT(firstname,' ',lastname) as fullname"))
-        ->orderBy('lastname','asc')
+        $leaves = Leave::orderBy('id', 'desc')->paginate(20);
+        $employees = DB::table('users')
+        ->select(DB::raw("id,CONCAT(name,' ',email) as fullname"))
+        ->orderBy('email','asc')
         ->pluck('fullname','id');
-        return view('pages.report.leave_report', compact('leaves', 'employees'));
+        $types = LeaveType::all();
+        return view('pages.report.leave_report', compact('leaves', 'employees', 'types'));
+    }
+
+    public function search(Request $request)
+    {
+        $employees = DB::table('users')
+        ->select(DB::raw("id,CONCAT(name,' ',email) as fullname"))
+        ->orderBy('email','asc')
+        ->pluck('fullname','id');
+        $types = LeaveType::all();
+        $fullname = $request->input('fullname');
+
+        $leaves = Leave::where('user_id', $fullname)->orderBy('id', 'desc')->paginate(20);
+
+        $leaves->appends(['user_id' => $fullname]);
+        return view('pages.report.leave_report', ['leaves' => $leaves], compact('employees', 'types'));
     }
 
     /**
