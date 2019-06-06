@@ -29,9 +29,12 @@
                         ]) 
                     }}
                 </div>
-                <div class="col-md-1 text-right" style="padding-top:4px; padding-right:10px">
+                <div class="col-md-1 text-left" style="padding-top:4px; padding-right:10px">
                 <br/>
                     {{ Form::submit('Search', ['class' => 'btn btn-primary']) }} 
+                </div>
+                <div class="col-md-1 text-right" style="padding-top:23px; padding-right:10px">
+                    <a class="btn btn-warning" href="/leave-report">All Leaves</a>
                 </div>
             </div>
            
@@ -41,8 +44,8 @@
             
         <div class="table-responsive" style="overflow-y: hidden;">
             @if(count($leaves) > 0)
-                <table class="table table-striped table-bordered table-hover">        
-                    <thead>
+                <table class="table  table-bordered table-hover">        
+                    <thead style="background-color:lightskyblue">
                         <tr>
                             <th>Name</th>
                             @foreach($types as $type)
@@ -55,21 +58,46 @@
                         </tr>
                     </thead>
                     <tbody>
-                            @foreach($leaves->unique('user_id') as $leave)
-                  
-                                <tr>
-                                    <td>{{ $leave->user->email }}</td>
-                                    @foreach($types as $type)
-                                        <td>{{$leaves->where('type_id', '=', $type->id)
-                                        ->where('user_id', '=', $leave->user->id)
-                                        ->where('status', '=', 'Approved')->count()}}</td>
-                                    @endforeach
-                                </tr>
-                                
-                            @endforeach
-                        
+                           
+                        @foreach($leaves->unique('employee_id') as $leave)
+            
+                            <tr>
+                                <td>{{ $leave->employee->firstname }} {{ $leave->employee->lastname }}</td>
+
+                                @foreach($types as $type)
+                                    <td>{{$leaves->where('type_id', '=', $type->id)
+                                    ->where('employee_id', '=', $leave->employee->id)
+                                    ->where('status', '=', 'Approved')->count()}}</td>
+                                @endforeach
+                            </tr>
+                            
+                        @endforeach
+                         
                     </tbody> 
-                        
+                    <tr><td></td></tr>
+                    <thead style="background-color:lightskyblue">
+                        <tr>
+                            <th>Total Employees</th>
+                            @foreach($types as $type)
+                                @if($type->id != null)
+                                    <th>Total {{ $type->name }}</th>
+                                @else
+                                    <th>Total {{ $type->name }}</th>
+                                @endif
+                            @endforeach
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <td>{{ $leaves->unique('user_id')->count() }}</td>
+                            @foreach($types as $type)
+                                @if($type->id != null)
+                                    <td>{{ $leaves->where('status', '=', 'Approved')
+                                                  ->where('type_id', '=', $type->id)->count() }} </td>
+                                @endif
+                            @endforeach
+                        </tr>
+                    </tfoot>   
                 </table>
                 <div class="text-center">
                     {{ $leaves->Links() }}

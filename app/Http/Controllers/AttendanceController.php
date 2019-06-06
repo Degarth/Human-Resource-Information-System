@@ -13,6 +13,16 @@ use DB;
 
 class AttendanceController extends Controller
 {
+     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -63,6 +73,11 @@ class AttendanceController extends Controller
         }*/
 
         $this->validate($request, [
+            'employee_id' => 'required',
+            'visited' => 'required|date|before:now',
+            'campus_id' => 'required',
+            'from' => 'required',
+            'to' => 'required'
 
         ]);
 
@@ -131,8 +146,7 @@ class AttendanceController extends Controller
         return redirect('/attendance-log')->with('success', 'All Selected Attendances Removed');
     }
 
-    public function import(Request $request)
-    {
+    
         /*$attendances = Excel::toCollection(new AttendancesImport(), $request->file('attendance'));
         foreach($attendances[0] as $attendance)
         {
@@ -143,8 +157,13 @@ class AttendanceController extends Controller
             ]);
         }*/
         
-
-        Excel::import(new AttendancesImport(), $request->file('attendance'));
+    public function import(Request $request)
+    {    
+        try {
+            Excel::import(new AttendancesImport(), $request->file('attendance'));
+        } catch(\Exception $ex) {
+            return back()->withError('Excel File is not as Expected!');
+        }
         return redirect('/attendance-log')->with('success', 'Attendance Log Imported');
     }
 

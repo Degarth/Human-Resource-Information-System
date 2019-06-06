@@ -7,9 +7,20 @@ use Illuminate\Support\Facades\Storage;
 use App\Employee;
 use App\Campus;
 use App\Department;
+use App\User;
 
 class EmployeesController extends Controller
 {
+     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -28,9 +39,11 @@ class EmployeesController extends Controller
      */   
     public function create()
     {
+        $user_id = auth()->user()->id;
+        $user = User::find($user_id);
         $departments = Department::pluck('name', 'id');
         $campuses = Campus::pluck('name', 'id');
-        return view('pages.employee.create', compact('departments', 'campuses'));
+        return view('pages.employee.create', compact('departments', 'campuses'))->with('user', $user->employee);
     }
 
     /**
@@ -45,15 +58,13 @@ class EmployeesController extends Controller
         $this->validate($request, [
             'firstname' => 'required',
             'lastname' => 'required',
-            #'campus' => 'required',
             'position' => 'required',
-            #'department' => 'required',
-            'email' => 'required',
+            'email' => 'required|email',
             'gender' => 'required',
-            'birthday' => 'required',
+            'birthday' => 'required|date',
             'telephone' => 'required',
             'address' => 'required',
-            'salary' => 'required',
+            'salary' => 'required|numeric',
             'avatar' => 'image|nullable|max:1999'
         ]);
 
@@ -156,7 +167,7 @@ class EmployeesController extends Controller
             $path = $request->file('avatar')->storeAs('public/avatars', $fileNameToStore);
         }
 
-        //Create Employee
+
         $employee = Employee::find($id);
         $employee->firstname = $request->input('firstname');
         $employee->lastname = $request->input('lastname');
@@ -213,4 +224,71 @@ class EmployeesController extends Controller
         $employees = Employee::all();
         return view('pages.dashboard')->with('employees', $employees);
     }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function profile()
+    {
+        $user_id = auth()->user()->id;
+        $user = User::find($user_id);
+        return view('pages.worker.profile')->with('employee', $user->employee)->with('user', $user->employee);
+    }
+
+    public function editProfile()
+    {
+        $departments = Department::pluck('name', 'id');
+        $campuses = Campus::pluck('name', 'id');
+        $user_id = auth()->user()->id;
+        $user = User::find($user_id);
+        return view('pages.worker.edit_profile', compact('departments', 'campuses'))->with('employee', $user->employee)->with('user', $user->employee);
+    }
+
+    public function updateProfile(Request $request, $id)
+    {
+        $this->validate($request, [
+            'firstname' => 'required',
+            'lastname' => 'required',
+            'email' => 'required',
+            'gender' => 'required',
+            'birthday' => 'required',
+            'telephone' => 'required',
+            'address' => 'required',
+            'avatar' => 'image|nullable|max:1999'
+        ]);
+
+        //Handle File Upload
+        if($request->hasFile('avatar')) {
+            //Get file name with the extension
+            $fileNameWithTxt = $request->file('avatar')->getClientOriginalName();
+            //Get just file name
+            $filename = pathinfo($fileNameWithTxt, PATHINFO_FILENAME);
+            //Get just extension
+            $extension = $request->file('avatar')->guessClientExtension();
+            //Filename to store
+            $fileNameToStore = $filename.'_'.time().'.'.$extension;
+            //Upload Avatar
+            $path = $request->file('avatar')->storeAs('public/avatars', $fileNameToStore);
+        }
+
+
+        $employee = Employee::find($id);
+        $employee->firstname = $request->input('firstname');
+        $employee->lastname = $request->input('lastname');
+        $employee->email = $request->input('email');
+        $employee->telephone = $request->input('telephone');
+        $employee->gender = $request->input('gender');
+        $employee->birthday = $request->input('birthday');
+        $employee->address = $request->input('address');
+        if($request->hasFile('avatar')) {
+            $employee->avatar = $fileNameToStore;
+        }
+        $employee->save();
+
+        return redirect('/profile')->with('success', 'Profile Updated');
+    }
+
 }

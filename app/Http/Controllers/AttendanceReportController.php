@@ -10,6 +10,16 @@ use DB;
 
 class AttendanceReportController extends Controller
 {
+     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -27,6 +37,13 @@ class AttendanceReportController extends Controller
 
     public function search(Request $request)
     {
+
+        $this->validate($request, [
+            'fullname' => 'required',
+            'date_from' => 'required|date|before:now',
+            'date_to' => ' required|date|after_or_equal:date_from|before:now',
+        ]);
+
         $employees = DB::table('employees')
         ->select(DB::raw("id,CONCAT(firstname,' ',lastname) as fullname"))
         ->orderBy('lastname','asc')
@@ -35,14 +52,16 @@ class AttendanceReportController extends Controller
         $date_from = $request->input('date_from');
         $date_to = $request->input('date_to');
         $attendances = Attendance::with('campus')
-                                    ->where('employee_id', $fullname)
-                                    ->where(function ($query) use ($date_from, $date_to) {
-                                        $query->whereBetween('visited', array($date_from, $date_to));
-                                    })->orderBy('visited', 'asc')->paginate(20);
+            ->where('employee_id', $fullname)
+            ->where(function ($query) use ($date_from, $date_to) {
+                $query->whereBetween('visited', array($date_from, $date_to));
+            })->orderBy('visited', 'asc')->paginate(20);
 
         $attendances->appends(['employee_id' => $fullname, 'visited' => array($date_from, $date_to)]);
         $hours = 0;
-        foreach($attendances as $attendance)
+        foreach($attendances->unique(function ($item) {
+            return $item['employee_id'].$item['visited'];
+        }) as $attendance)
         {
             $hours += strtotime($attendance->to) - strtotime($attendance->from);
 

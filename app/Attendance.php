@@ -8,7 +8,7 @@ class Attendance extends Model
 {
     protected $fillable = array('employee_id', 'visited', 'campus_id', 'from', 'to');
     
-    protected $dateFormat = 'Y-m-d';
+    #protected $dateFormat = 'Y-m-d';
 
     public function employee()
     {

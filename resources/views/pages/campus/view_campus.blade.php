@@ -31,7 +31,9 @@
                                 <th>Campus Name</th>
                                 <th>Campus Head</th>
                                 <th>Description</th>
-                                <th>Action</th>
+                                @if(Auth::user()->email == 'admin@gmail.com')
+                                    <th>Action</th>
+                                @endif
                             </tr>
                         </thead>
                         <tbody class="bg-dark">
@@ -39,12 +41,14 @@
                                 @foreach($campuses as $campus)
                                     <tr>
                                         <td>{{ $campus->name }}</td>
-                                        <td>{{ $campus->description }}</td>
                                         <td>{{ $campus->head }}</td>
-                                        <td>
-                                            <a class="btn btn-warning" href="/view-campus/{{ $campus->id }}/edit">Edit</a> 
-                                            <button class="btn btn-danger" formaction="{{ action('CampusController@destroy', $campus->id) }}" type="submit">Delete</button> 
-                                        </td>
+                                        <td>{{ $campus->description }}</td>
+                                        @if(Auth::user()->email == 'admin@gmail.com')
+                                            <td>
+                                                <a class="btn btn-warning" href="/view-campus/{{ $campus->id }}/edit">Edit</a> 
+                                                <button class="btn btn-danger" formaction="{{ action('CampusController@destroy', $campus->id) }}" type="submit">Delete</button> 
+                                            </td>
+                                        @endif
                                     </tr>
                                 @endforeach
                         </tbody>

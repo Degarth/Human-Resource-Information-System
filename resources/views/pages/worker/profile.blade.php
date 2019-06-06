@@ -8,9 +8,8 @@
     </h1>
     <ol class="breadcrumb">
         <li><a href="/">Dashboard</a></li>
-        <li><a href="/view-employees">Employees</a></li>
+        <li><a href="/profile">Personal</a></li>
         <li class="active">{{ $employee->firstname }} {{ $employee->lastname }}</li>
-        <a class="pull-right" href="/view-employees">Go Back</a>
     </ol>               
 </div>
 
@@ -125,7 +124,7 @@
                 </div>
                 <br/>
                 
-                <a class="btn btn-warning" href="/view-employees/{{ $employee->id }}/edit">Edit</a>
+                <a class="btn btn-warning" href="/edit-profile">Edit</a>
             </div>
         </div>
     </div>

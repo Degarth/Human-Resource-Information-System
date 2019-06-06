@@ -48,7 +48,9 @@
                         </thead>
                         <tbody>
                             
-                                @foreach($attendances as $attendance)
+                                @foreach($attendances->unique(function ($item) {
+                                    return $item['employee_id'].$item['visited'];
+                                }) as $attendance)
                                     <tr>
                                         <td><input type="checkbox" name="ids[]" class="selectbox" value="{{ $attendance->id }}"></td>
                                         <td>{{ $attendance->employee_id }}</td>

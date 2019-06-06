@@ -6,10 +6,21 @@ use Illuminate\Http\Request;
 use App\Leave;
 use App\LeaveType;
 use App\Employee;
+use App\User;
 use DB;
 
 class LeaveReportController extends Controller
 {
+     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -18,26 +29,27 @@ class LeaveReportController extends Controller
     public function index()
     {
         $leaves = Leave::orderBy('id', 'desc')->paginate(20);
-        $employees = DB::table('users')
-        ->select(DB::raw("id,CONCAT(name,' ',email) as fullname"))
-        ->orderBy('email','asc')
+        $employees = DB::table('employees')
+        ->select(DB::raw("id,CONCAT(id ,' ', firstname,' ',lastname) as fullname"))
+        ->orderBy('firstname','asc')
         ->pluck('fullname','id');
         $types = LeaveType::all();
-        return view('pages.report.leave_report', compact('leaves', 'employees', 'types'));
+        $users = User::all();
+        return view('pages.report.leave_report', compact('leaves', 'employees', 'types', 'users'));
     }
 
     public function search(Request $request)
     {
-        $employees = DB::table('users')
-        ->select(DB::raw("id,CONCAT(name,' ',email) as fullname"))
-        ->orderBy('email','asc')
+        $employees = DB::table('employees')
+        ->select(DB::raw("id,CONCAT(id,' ',firstname,' ',lastname) as fullname"))
+        ->orderBy('id','asc')
         ->pluck('fullname','id');
         $types = LeaveType::all();
         $fullname = $request->input('fullname');
 
-        $leaves = Leave::where('user_id', $fullname)->orderBy('id', 'desc')->paginate(20);
+        $leaves = Leave::where('employee_id', $fullname)->orderBy('id', 'desc')->paginate(20);
 
-        $leaves->appends(['user_id' => $fullname]);
+        $leaves->appends(['employee_id' => $fullname]);
         return view('pages.report.leave_report', ['leaves' => $leaves], compact('employees', 'types'));
     }
 

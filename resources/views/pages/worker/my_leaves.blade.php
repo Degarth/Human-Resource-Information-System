@@ -32,6 +32,7 @@
                                 <th>Leave Type</th>
                                 <th>From</th>
                                 <th>To</th>
+                                <th>Days</th>
                                 <th>Reason</th>
                                 <th>Status</th>
                                 <th>Action</th>
@@ -39,27 +40,41 @@
                         </thead>
                         <tbody class="bg-dark">
                             
-                                @foreach($leaves as $leave)
+                                @foreach($leaves->where('employee_id', '=', Auth::user()->employee->id) as $leave)
                                     <tr>
                                         <td>{{ $leave->created_at }}</td>
                                         @if($leave->type_id == null)
                                             <td>Type Was Removed</td>
                                         @else
                                             <td>{{ $leave->type->name }}</td>
-                                        @endif
+                                        @endif 
                                         <td>{{ $leave->from }}</td>
                                         <td>{{ $leave->to }}</td>
+                                        <td>{{ date('j', (strtotime($leave->to) - strtotime($leave->from))) }} Days</td>
                                         <td>{{ $leave->reason }}</td>
-                                        @if($leave->status == 'Approved')
+                                        
+                                        @if($leave->from < date('Y-m-d'))
+                                            <td style="background-color:grey">{{ $leave->status }}</td>
+                                            <td>
+                                               Old Record 
+                                            </td>
+                                        @elseif($leave->status == 'Approved')
                                             <td style="background-color:#5cb85c">{{ $leave->status }}</td>
+                                            <td>
+                                                <button class="btn btn-danger" formaction="{{ action('LeavesController@destroy', $leave->id) }}" type="submit">Delete Request</button> 
+                                            </td>
                                         @elseif($leave->status == "Rejected")
                                             <td style="background-color:#d9534f">{{ $leave->status }}</td>
+                                            <td>
+                                                <button class="btn btn-danger" formaction="{{ action('LeavesController@destroy', $leave->id) }}" type="submit">Delete Request</button> 
+                                            </td>
                                         @else
                                             <td>{{ $leave->status }}</td>
+                                            <td>
+                                                <button class="btn btn-danger" formaction="{{ action('LeavesController@destroy', $leave->id) }}" type="submit">Delete Request</button> 
+                                            </td>
                                         @endif
-                                        <td>
-                                            <button class="btn btn-danger" formaction="{{ action('LeavesController@destroy', $leave->id) }}" type="submit">Delete Request</button> 
-                                        </td>
+                                        
                                     </tr>
                                 @endforeach
                                 
@@ -70,7 +85,7 @@
                         </tfoot>
                     </table>
                     <div class="text-center">
-                        {{ $leaves->Links() }}
+                       
                     </div>
                 </div>
             </div>

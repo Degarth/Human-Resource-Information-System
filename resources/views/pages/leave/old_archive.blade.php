@@ -4,12 +4,12 @@
 
 <div class="header"> 
     <h1 class="page-header">
-        All Leaves
+        Old Leave Archive
     </h1>
     <ol class="breadcrumb">
         <li><a href="#">Dashboard</a></li>
         <li><a>Leave</a></li>
-        <li class="active">View</li>
+        <li class="active">Old Archive</li>
     </ol>               
 </div>
 
@@ -21,7 +21,7 @@
 
         <div class="panel panel-primary">
             <div class="panel-heading">
-                Leaves
+                Old Leave Archive
             </div>
             <div class="panel-body">
                 <div class="table-responsive" style="overflow-y: hidden">
@@ -41,7 +41,7 @@
                         </thead>
                         <tbody class="bg-dark">
                             
-                                @foreach($leaves->where('from', '>', date('Y-m-d')) as $leave)
+                                @foreach($leaves->where('from', '<', date('Y-m-d')) as $leave)
                                     <tr>
                                         <td>{{ $leave->created_at }}</td>
                                         <td>{{ $leave->employee->firstname }} {{ $leave->employee->lastname }}</td>
@@ -54,29 +54,10 @@
                                         <td>{{ $leave->to }}</td>
                                         <td>{{ date('j', (strtotime($leave->to) - strtotime($leave->from))) }} Days</td>
                                         <td>{{ $leave->reason }}</td>
-                                    
-                                        @if($leave->from < date('Y-m-d'))
-                                            <td style="background-color:grey">{{ $leave->status }}</td>
-                                            <td>
-                                                Old Record
-                                            </td>
-                                        @elseif($leave->status == 'Approved')
-                                            <td style="background-color:#5cb85c">{{ $leave->status }}</td>
-                                            <td>
-                                                <a class="btn btn-danger" href="/reject/{{ $leave->id }}">Reject Request</a>
-                                            </td>
-                                        @elseif($leave->status == "Rejected")
-                                            <td style="background-color:#d9534f">{{ $leave->status }}</td>
-                                            <td>
-                                                <a class="btn btn-success" href="/approve/{{ $leave->id }}">Approve Request</a>
-                                            </td>
-                                        @else
-                                            <td>{{ $leave->status }}</td>
-                                            <td>
-                                                <a class="btn btn-success" href="/approve/{{ $leave->id }}">Approve Request</a>
-                                                <a class="btn btn-danger" href="/reject/{{ $leave->id }}">Reject Request</a>
-                                            </td>
-                                        @endif
+                                        <td style="background-color:grey">{{ $leave->status }}</td>
+                                        <td>
+                                            Old Record
+                                        </td>
                                     </tr>
                                 @endforeach
                         </tbody>
@@ -89,7 +70,7 @@
         </div>
     @else
         <div class="panel panel-primary" style="padding:20px;background-color:white">
-            <p class="alert alert-warning" style="margin:0px;">No Leaves Found</p>
+            <p class="alert alert-warning" style="margin:0px;">No Old Records Found</p>
         </div>
     @endif
 </div>

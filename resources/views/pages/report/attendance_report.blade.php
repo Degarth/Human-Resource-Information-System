@@ -53,15 +53,17 @@
          
             <div class="row">
                 <div class="col-md-2" style="margin:0px 20px 20px 20px; padding:0px">
-                    <p><i class="fa fa-user"></i>Employee Name</p>
+                    <p><i class="fa fa-user"></i> Employee Name</p>
                     <h4 style="padding:0px">{{ $firstname }} {{ $lastname }}</h4>
                 </div>
                 <div class="col-md-2" style="margin:0px 20px 20px 20px; padding:0px">
-                    <p><i class="fa fa-calendar"></i>Worked</p>
-                    <h4 style="padding:0px">{{ count($attendances) }} Day(s)</h4>
+                    <p><i class="fa fa-calendar"></i> Worked</p>
+                    <h4 style="padding:0px">{{ count($attendances->unique(function ($item) {
+                            return $item['employee_id'].$item['visited'];
+                        })) }} Day(s)</h4>
                 </div>
                 <div class="col-md-2" style="margin:0px 20px 20px 20px; padding:0px">
-                    <p><i class="fa fa-user"></i>Total Hours</p>
+                    <p><i class="fa fa-user"></i> Total Hours</p>
                     <h4 style="padding:0px">{{ floor($hours / 3600) }} Hour(s)</h4>
                 </div>
             </div>
@@ -80,8 +82,9 @@
                         </tr>
                     </thead>
                     <tbody>
-                        
-                            @foreach($attendances as $attendance)
+                            @foreach($attendances->unique(function ($item) {
+                                return $item['employee_id'].$item['visited'];
+                            }) as $attendance)
                                 <tr>
                                     <td>{{ $attendance->visited }}</td>
                                     <td>{{ $attendance->from }}</td>

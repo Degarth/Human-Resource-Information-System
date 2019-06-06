@@ -68,7 +68,7 @@
                             <div class="panel-heading">
                                 Leave Types Allowance
                             </div>
-                            <div class="panel-body">
+                            <div class="panel-body" style="padding:0px; margin:0px">
                                 <div class="table-responsive" style="overflow-y: hidden">
                                     <table class="table table-bordered table-hover">
                                         <thead>
@@ -78,11 +78,10 @@
                                             </tr>
                                         </thead>
                                         <tbody class="bg-dark">
-                                            
                                                 @foreach($types as $type)
                                                     <tr>
                                                         <td>{{ $type->name }}</td>
-                                                        <td>{{ ($type->allowance)-$ }} Days</td>        
+                                                        <td>{{ ($type->allowance) }} Days</td>        
                                                     </tr>
                                                 @endforeach
                                         </tbody>

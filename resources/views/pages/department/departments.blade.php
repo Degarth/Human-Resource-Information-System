@@ -31,7 +31,9 @@
                                 <th>Department Name</th>
                                 <th>Details</th>
                                 <th>Department Head</th>
-                                <th>Action</th>
+                                @if(Auth::user()->email == 'admin@gmail.com')
+                                    <th>Action</th>
+                                @endif
                             </tr>
                         </thead>
                         <tbody class="bg-dark">
@@ -41,10 +43,12 @@
                                         <td>{{ $department->name }}</td>
                                         <td>{{ $department->details }}</td>
                                         <td>{{ $department->head }}</td>
-                                        <td>
-                                            <a class="btn btn-warning" href="/departments/{{ $department->id }}/edit">Edit</a> 
-                                            <button class="btn btn-danger" formaction="{{ action('DepartmentsController@destroy', $department->id) }}" type="submit">Delete</button> 
-                                        </td>
+                                        @if(Auth::user()->email == 'admin@gmail.com')
+                                            <td>
+                                                <a class="btn btn-warning" href="/departments/{{ $department->id }}/edit">Edit</a> 
+                                                <button class="btn btn-danger" formaction="{{ action('DepartmentsController@destroy', $department->id) }}" type="submit">Delete</button> 
+                                            </td>
+                                        @endif
                                     </tr>
                                 @endforeach
                         </tbody>

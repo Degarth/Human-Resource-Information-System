@@ -8,7 +8,7 @@ use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithValidation;
 use Carbon\Carbon;
 use DateTime;
-use PhpOffice\PhpSpreadsheet\Shared\Date;
+use App\Imports\PhpOffice\PhpSpreadsheet\Shared\Date;
 
 class AttendancesImport implements ToModel, WithValidation
 {
@@ -21,10 +21,14 @@ class AttendancesImport implements ToModel, WithValidation
     {
         return new Attendance([
             'employee_id' => $row[0],
-            'visited' => PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row[1]),
+            #'visited' => $row[1],
+            #'campus_id' => $row[2],
+            #'from' => $row[3],
+            #'to' => $row[4]
+            'visited' => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row[1])->format('Y-m-d'),
             'campus_id' => $row[2],
-            'from' => PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row[3]),
-            'to' => PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row[4])
+            'from' => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row[3])->format('H:i'),
+            'to' => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row[4])->format('H:i')
         ]);
     }
 

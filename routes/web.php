@@ -33,11 +33,13 @@ Route::get('/attendance-report', 'PagesController@attendanceReport');
 Route::get('/leave-report', 'PagesController@leaveReport');
 Route::get('/profile', 'PagesController@profile');*/
 
-
+Route::get('/', 'DashboardController@index');
 Route::delete('/delete-all', 'EmployeesController@deleteAll'); // Delete all products
 Route::resource('/view-employees', 'EmployeesController');
 Route::resource('/new-employee', 'EmployeesController');
-#Route::get('/upload', 'AttendanceController@import');
+Route::get('/profile', 'EmployeesController@profile');
+Route::get('/edit-profile', 'EmployeesController@editProfile');
+Route::put('/update-profile/{id}', 'EmployeesController@updateProfile');
 Route::resource('/attendance-log', 'AttendanceController');
 Route::get('/upload-attendance', 'AttendanceController@create');
 Route::get('/export-attendance', 'AttendanceController@createExport');
@@ -50,6 +52,7 @@ Route::get('leave-application', 'LeavesController@application');
 Route::get('my-leaves', 'LeavesController@myLeaves');
 Route::get('/approve/{id}', 'LeavesController@approve');
 Route::get('/reject/{id}', 'LeavesController@reject');
+Route::get('old-leave-archive', 'LeavesController@oldArchive');
 Route::get('add-leave-type', 'LeaveTypesController@create');
 Route::resource('/leave-types', 'LeaveTypesController');
 Route::resource('/view-campus', 'CampusController');
@@ -64,4 +67,3 @@ Route::get('/search-leave', 'LeaveReportController@search');
 
 Auth::routes();
 
-Route::get('/', 'DashboardController@index');
